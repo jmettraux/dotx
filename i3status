@@ -15,13 +15,13 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
-        output_format = "i3bar"
-        colors = true
-        interval = 5
+  output_format = "i3bar"
+  colors = true
+  interval = 1
 }
 
 order += "ipv6"
-order += "disk /"
+order += "disk /home/jmettraux"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "battery all"
@@ -33,12 +33,11 @@ order += "cpu_temperature acpitz0"
 order += "volume master"
 
 cpu_temperature cpu0 {
-         format = "C: %degrees C"
-         path = "cpu0"
+  format = "C: %degrees C"
+  path = "cpu0"
 }
-
 cpu_temperature acpitz0 {
-        format = "TZ: %degrees C"
+  format = "TZ: %degrees C"
 }
 
 wireless _first_ {
@@ -48,12 +47,12 @@ wireless _first_ {
 }
 
 ethernet _first_ {
-        format_up = "E: %ip (%speed)"
-        format_down = "E: down"
+  format_up = "E: %ip (%speed)"
+  format_down = "E: down"
 }
 
 battery all {
-        format = "%status %percentage \% %remaining"
+  format = "%status %percentage \% %remaining"
 }
 
 tztime local {
@@ -61,17 +60,18 @@ tztime local {
 }
 tztime utc {
   timezone = "UTC"
-  format = "%H:%M:%S Z"
+  format = "-%m-%d %H:%M Z"
 }
 
 load {
-        format = "%1min"
+  format = "L %1min"
 }
 
-disk "/" {
-        format = "%avail"
+disk "/home/jmettraux" {
+  format = "free %avail"
 }
 
 volume master {
-	format = "vol: %volume"
+  format = "vol: %volume"
 }
+
