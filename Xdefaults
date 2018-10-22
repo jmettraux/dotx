@@ -1,0 +1,28 @@
+
+!
+! cd ~
+! ln -s .x/Xdefaults .Xdefaults
+!
+
+XTerm*loginShell:true
+XTerm*background: black
+XTerm*foreground: white
+!XTerm*faceName: Mono
+!XTerm*faceSize: 14
+!XTerm*background: black
+!XTerm*foreground: white
+!XTerm*pointerColor: red
+!XTerm*pointerColorBackground: black
+!XTerm*cursorColor: green
+!XTerm*internalBorder: 3
+XTerm*scrollBar: false
+XTerm*scrollKey: true
+XTerm*saveLines: 2048
+!XTerm*multiClickTime: 250
+
+URxvt.loginshell: true
+URxvt.scrollBar: false
+URxvt.background: black
+URxvt.foreground: white
+!URxvt.faceSize: 14
+
