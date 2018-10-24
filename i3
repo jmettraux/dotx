@@ -37,11 +37,11 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec /usr/X11R6/bin/xterm
-#bindsym $mod+Return exec /usr/local/bin/st
-#bindsym $mod+Return exec /usr/local/bin/st -t "t" -e /usr/local/bin/bash
+#bindsym $mod+Return exec /usr/local/bin/st -t "st" -e /usr/local/bin/bash
 #bindsym $mod+Return exec /usr/X11R6/bin/xterm -bg black -fg white
 #bindsym $mod+Return exec /usr/local/bin/urxvt
-bindsym $mod+Return exec /usr/X11R6/bin/xterm
+#bindsym $mod+Return exec /usr/X11R6/bin/xterm
+bindsym $mod+Return exec /usr/local/bin/st -t "st"
 
 # kill focused window
 bindsym $mod+Shift+q kill
