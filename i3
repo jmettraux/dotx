@@ -54,10 +54,10 @@ bindsym $mod+d exec /usr/local/bin/dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym Control+h focus left
+bindsym Control+j focus down
+bindsym Control+k focus up
+bindsym Control+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -130,8 +130,8 @@ bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
 bindsym $mod+b workspace back_and_forth
-bindsym Control+h workspace prev
-bindsym Control+l workspace next
+bindsym $mod+h workspace prev
+bindsym $mod+l workspace next
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
