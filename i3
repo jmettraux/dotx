@@ -41,7 +41,8 @@ floating_modifier $mod
 #bindsym $mod+Return exec /usr/X11R6/bin/xterm -bg black -fg white
 #bindsym $mod+Return exec /usr/local/bin/urxvt
 #bindsym $mod+Return exec /usr/X11R6/bin/xterm
-bindsym $mod+Return exec /usr/local/bin/st -t "st"
+#bindsym $mod+Return exec /usr/local/bin/st -t "st"
+bindsym $mod+Return exec LANG=en_US.UTF-8 /usr/local/bin/urxvt -fn "xft:Terminus:pixelsize=14"
 
 # kill focused window
 bindsym $mod+Shift+q kill
