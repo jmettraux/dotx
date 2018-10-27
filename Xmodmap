@@ -1,7 +1,6 @@
 
 !
-! cd ~
-! ln -s .x/Xmodmap .Xmodmap
+! called by .xsession
 !
 
 remove Lock = Caps_Lock
