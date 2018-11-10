@@ -42,7 +42,7 @@ floating_modifier $mod
 #bindsym $mod+Return exec /usr/local/bin/urxvt
 #bindsym $mod+Return exec /usr/X11R6/bin/xterm
 #bindsym $mod+Return exec /usr/local/bin/st -t "st"
-bindsym $mod+Return exec LANG=en_US.UTF-8 /usr/local/bin/urxvt -fn "xft:Terminus:pixelsize=14"
+bindsym $mod+Return exec LANG=en_US.UTF-8 /usr/local/bin/urxvt -fn "xft:Terminus:pixelsize=17"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -56,6 +56,7 @@ bindsym $mod+d exec /usr/local/bin/dmenu_run
 
 # change focus
 bindsym Control+h focus left
+bindsym Control+semicolon focus left
 bindsym Control+j focus down
 bindsym Control+k focus up
 bindsym Control+l focus right
