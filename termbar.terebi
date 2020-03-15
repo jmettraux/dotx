@@ -1,0 +1,94 @@
+#!/usr/local/bin/ruby26
+
+#
+# termbar.fugu
+#
+# vim set ft=ruby:
+#
+
+require 'pp'
+
+#RES = "[0;0m"
+DGY = "[90m"
+  #
+  # reset 0;0
+  # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
+  # black 30 red 31 green 32 yellow 33 blue 34 magenta 35 cyan 36
+  # light_gray 37 dark_gray 90 light_red 91 light_green 92
+  # light_yellow 93 light_blue 94 light_magenta 95 light_cyan 96 white 97
+  # bg_default 49 bg_black 40 bg_red 41 bg_green 42 bg_yellow 43 bg_blue 44
+  # bg_magenta 45 bg_cyan 46 bg_light_gray 47 bg_dark_gray 100
+  # bg_light_red 101 bg_light_green 102 bg_light_yellow 103
+  # bg_light_blue 104 bg_light_magenta 105 bg_light_cyan 106
+  # bg_white 107
+
+
+begin
+
+  loop do
+
+    cols = `tput cols`.to_i
+
+    hw = `sysctl hw`
+      .split("\n")
+      .inject({}) { |h, l| k, v = l.split('='); h[k.split('.', 2).last] = v; h }
+    ifconfig = `ifconfig`
+      .split("\n")
+      .collect(&:strip)
+    top = `top -1 -d 1 -p 1`
+      .split("\n")
+
+    machine = %w[ vendor product model _machine ]
+      .collect { |k| k[0, 1] == '_' ? "(#{hw[k[1..-1]]})" : hw[k] }
+      .compact
+      .join(' ')
+      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU/, '')
+
+    nwid = ifconfig
+      .select { |l| l.match(/ieee80211/) }
+      .first
+      .match(/ join ([^ ]+) /)[1] rescue '(no nwid)'
+    ip = ifconfig
+      .select { |l| l.match(/inet \d/) }
+      .reject { |l| l.match(/ 127\.0\.0\.1 /) }
+      .first
+      .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
+    net = "net #{nwid} #{ip}"
+
+    lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, '/')
+
+    up = top[1].match(/ up (.+)$/)[1] rescue '0 days'
+    up = up.gsub(/[,\s]+/, ' ')
+
+    procs = top[1].match(/^(\d+) processes: (\d+) idle/) || [ nil, '0', '0' ]
+    procs = [ procs[1].to_i, procs[1].to_i - procs[2].to_i ]
+    procs = "procs #{procs[0]}/#{procs[1]} load #{lod}"
+
+    mem = top[3].match(/Real: ([^\/]+)\/([^\/]+) /) || [ nil, '0', '0' ]
+    fmem = top[3].match(/ Free: ([^ ]+) /)[1] rescue '0'
+    mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
+
+    temp = (hw['sensors.cpu0.temp0'].split(' ')[0] rescue '0')
+    speed = hw['cpuspeed'] || '0'
+    idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
+    cpu = "cpu s#{speed} #{100.0 - idle}% t#{temp}C"
+
+    fan = 'fan ' + (hw['sensors.asmc0.fan0'].split(/\s+/)[0] rescue '0') + 'rpm'
+
+    now = Time.now.to_s
+
+    s = [ machine, net, procs, mem, cpu, fan, up, now ].join(' | ') + ' '
+
+    print "\n" << DGY << sprintf("%#{cols}s", s)
+
+    sleep 1.0
+
+    break if ARGV.any? # debugging...
+  end
+
+rescue => err
+
+  print "\n" + err.inspect + " at " + err.backtrace[0]
+  sleep
+end
+

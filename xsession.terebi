@@ -6,10 +6,12 @@
 
 /usr/X11R6/bin/xmodmap ~/.x/Xmodmap.terebi
 
-xterm \
-  -geometry 320x1+0+0 -fa "mono:size=12" -bg black \
-  -fg grey -fs 10 -name termbar -class termbar \
-  -T termbar -e ~/.x/termbar.terebi &
+urxvt \
+  -geometry 320x1+0+0 -cr black \
+  -e ~/.x/termbar.terebi &
+  #-geometry 320x1+0+0 -fa "mono:size=8" -fs 8 \
+  #-bg black -cr black -fg grey -name termbar -class termbar \
+  #-T termbar -e "~/.x/termbar.terebi" &
 
 cwm
 

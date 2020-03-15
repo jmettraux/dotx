@@ -1,5 +1,6 @@
 
 ignore "termbar"
+ignore "xconsole"
 
 #moveamount 10
 #snapdist 25

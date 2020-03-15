@@ -4,7 +4,7 @@
 ! ln -s .x/Xdefaults .Xdefaults
 !
 
-XTerm*loginShell:true
+XTerm*loginShell: true
 XTerm*background: black
 XTerm*foreground: white
 !XTerm*faceName: Mono
