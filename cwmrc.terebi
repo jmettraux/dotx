@@ -1,0 +1,14 @@
+
+ignore "termbar"
+
+#moveamount 10
+#snapdist 25
+#sticky yes
+#gap 30 30 30 30
+
+#color activeborder blue
+#color inactiveborder darkblue
+
+#bind-key 4-r reload
+#bind-key 4-Return terminal
+

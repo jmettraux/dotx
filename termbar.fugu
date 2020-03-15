@@ -1,0 +1,17 @@
+#!/bin/sh
+
+while true; do
+
+  CPU_SPEED=$(sysctl hw.cpuspeed | cut -d "=" -f 2 | cut -d "." -f 1)
+  CPU_TEMP=$(sysctl hw.sensors.cpu0.temp0 | cut -d "=" -f 2 | cut -d "." -f 1)
+  RAM=$(top | grep Memory | awk {'print $3 " / " $6'})
+  BAT_STATUS=$(sysctl hw.sensors.acpiac0.indicator0 | cut -d "=" -f 2 | cut -d "." -f 1)
+  BAT=$(apm -l)
+  DATE=$(date)
+  NWID=$(ifconfig | grep ieee | awk {'print $3'})
+  IP=$(ifconfig | grep inet | tail -1 | awk {'print $2'})
+
+  echo -en "  $USER | $DATE | CPU: $CPU_SPEED - $CPU_TEMP | $RAM | Bat: $BAT - $BAT_STATUS | $NWID $IP   \r"
+  sleep 1
+done
+

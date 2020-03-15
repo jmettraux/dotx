@@ -1,0 +1,16 @@
+
+#
+# cd ~
+# ln -s .x/xsession .xsession
+#
+
+/usr/X11R6/bin/xmodmap ~/.x/Xmodmap
+
+xterm \
+  -geometry 320x1+0+0 -fa "mono:size=12" -bg black \
+  -fg grey -fs 10 -name termbar -class termbar \
+  -T termbar -e ~/.x/termbar &
+
+#i3
+cwm
+

@@ -1,7 +1,7 @@
 
 # dotx
 
-my Xorg and I3 configurations. Nothing spectacular.
+my Xorg and cwm configurations. Nothing spectacular.
 
 
 ## license
