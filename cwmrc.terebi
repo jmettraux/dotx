@@ -1,6 +1,6 @@
 
 ignore "termbar"
-ignore "xconsole"
+#ignore "xconsole"
 
 gap 18 0 0 0
 snapdist 2
@@ -10,7 +10,7 @@ snapdist 2
 #sticky yes
 
 #color activeborder blue
-#color inactiveborder darkblue
+color inactiveborder black
 
 #bind-key 4-r reload
 #bind-key 4-Return terminal

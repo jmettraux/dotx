@@ -9,7 +9,7 @@
 require 'pp'
 
 #RES = "[0;0m"
-DGY = "[90m"
+#DGY = "[93m"
   #
   # reset 0;0
   # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
@@ -23,11 +23,11 @@ DGY = "[90m"
   # bg_white 107
 
 
-debug = false
-  #
-Signal.trap('USR1') do
-  debug = ! debug
-end
+#debug = false
+#  #
+#Signal.trap('USR1') do
+#  debug = ! debug
+#end
 
 
 begin
@@ -91,20 +91,13 @@ begin
 
     cols = `tput cols`.to_f
     lcols = (cols * 0.75).to_i
-    rcols = cols.to_i - lcols - 8
+    rcols = cols.to_i - lcols - 1
 
-    n = 10
+    rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
+    #print "\n" << DGY << sprintf("%-#{lcols}s%#{rcols}s ", ls, rss)
+    print "\n" << sprintf("%-#{lcols}s%#{rcols}s ", ls, rss)
 
-    n.times do |i|
-      rss = (i == 0) ? rs.sub(/:(\d\d) /, '.\1 ') : rs
-      print "\n" << DGY << sprintf("%-#{lcols}s%#{rcols}s", ls, rss)
-      sleep(1.0 / n)
-    end
-
-    if debug
-      print "\n" + `tput cols`
-      sleep 10
-    end
+    sleep 1
   end
 
 rescue => err

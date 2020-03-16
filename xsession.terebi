@@ -12,13 +12,13 @@
 
 /usr/X11R6/bin/xmodmap ~/.x/Xmodmap.terebi
 
-#/usr/loca/bin/feh --bg-max /home/jmettraux/wallpapers/cata.jpg
+/usr/local/bin/feh --bg-max /home/jmettraux/wallpapers/cata.jpg
 
-urxvt \
-  -fn "xft:Terminus:pixelsize=14" \
-  -geometry 240x1+0+0 -cr black \
-  -name termbar \
-  -e ~/.x/termbar.terebi &
+st \
+  -g 321x1+0+0 -f "Terminus" \
+  -c termbar -n termbar \
+  -e /usr/local/bin/ruby26 ~/.x/termbar.terebi &
+
 
 LC_CTYPE=en_US.UTF-8 urxvt \
   -fn "xft:Terminus:pixelsize=14" \
