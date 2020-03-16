@@ -2,10 +2,12 @@
 ignore "termbar"
 ignore "xconsole"
 
+gap 17 0 0 0
+snapdist 2
+
 #moveamount 10
 #snapdist 25
 #sticky yes
-#gap 30 30 30 30
 
 #color activeborder blue
 #color inactiveborder darkblue

@@ -4,14 +4,25 @@
 # ln -s .x/xsession .xsession
 #
 
+#for m in `ls /usr/local/lib/X11/fonts/`; do
+#  if [ -d "/usr/local/lib/X11/fonts/$m" ]; then
+#    xset fp+ "/usr/local/lib/X11/fonts/$m"
+#  fi
+#done
+
 /usr/X11R6/bin/xmodmap ~/.x/Xmodmap.terebi
+
+#/usr/loca/bin/feh --bg-max /home/jmettraux/wallpapers/cata.jpg
 
 urxvt \
   -geometry 320x1+0+0 -cr black \
+  -name termbar \
   -e ~/.x/termbar.terebi &
   #-geometry 320x1+0+0 -fa "mono:size=8" -fs 8 \
   #-bg black -cr black -fg grey -name termbar -class termbar \
   #-T termbar -e "~/.x/termbar.terebi" &
+
+LC_CTYPE=en_US.UTF-8 urxvt -geometry 80x81+1434+17 -name term0 &
 
 cwm
 
