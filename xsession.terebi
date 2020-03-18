@@ -10,16 +10,18 @@
 #  fi
 #done
 
-/usr/X11R6/bin/xmodmap ~/.x/Xmodmap.terebi
+xmodmap ~/.x/Xmodmap.terebi
 
-/usr/local/bin/feh --bg-fill /home/jmettraux/wallpapers/cata.jpg
+feh --bg-fill /home/jmettraux/wallpapers/cata.jpg
 
 #xterm -fa Terminus -fs 9 -g 321x1+0+0 -T termbar -e ~/.x/termbar.terebi &
 st -f "Terminus:size=9" -g 321x1+0+0 -T termbar -e ~/.x/termbar.terebi &
 
 
+#LC_CTYPE=en_US.UTF-8 \
+#  st -f "Terminus:size=12" -g 80x66+1274+17 -c term0 -n term0 &
 LC_CTYPE=en_US.UTF-8 \
-  st -f "Terminus:size=12" -g 80x66+1274+17 -c term0 -n term0 &
+  jt -f "Hack:size=10" -g 80x62+1274+17 -c term0 -n term0 &
 
 cwm
 
