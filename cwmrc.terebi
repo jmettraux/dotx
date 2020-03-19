@@ -24,3 +24,6 @@ bind-key M-BackSpace  "xlock -mode random"
 
 bind-key M-r  "dmenu_run -b -fn \"Hack:size=12\""
 
+#bind-key M-[  "~/bin/vup"
+#bind-key M-]  "~/bin/vdown"
+

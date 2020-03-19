@@ -10,7 +10,7 @@
 #  fi
 #done
 
-xmodmap ~/.x/Xmodmap.terebi
+xmodmap ~/.x/modmap.terebi
 
 feh --bg-fill /home/jmettraux/wallpapers/cata.jpg
 
