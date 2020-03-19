@@ -15,3 +15,7 @@ color inactiveborder black
 #bind-key 4-r reload
 #bind-key 4-Return terminal
 
+bind-key M-1  "jt -f \"Hack:size=10\" -g 80x62+0+17"
+bind-key M-2  "jt -f \"Hack:size=10\" -g 158x62+1+17"
+bind-key M-3  "jt -f \"Hack:size=10\" -g 80x62+1274+17"
+
