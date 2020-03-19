@@ -33,6 +33,8 @@ DGY = "[32m"
 
 begin
 
+  mprocs = [ nil, '0', '0' ]
+
   loop do
 
     # gather info
@@ -68,8 +70,8 @@ begin
     up = top[1].match(/ up (.+)$/)[1] rescue '0 days'
     up = up.gsub(/[,\s]+/, ' ')
 
-    procs = top[1].match(/^(\d+) processes: (\d+) idle/) || [ nil, '0', '0' ]
-    procs = [ procs[1].to_i, procs[1].to_i - procs[2].to_i ]
+    mprocs = top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs
+    procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
     procs = sprintf("procs %3d/%1d load %s", procs[0], procs[1], lod)
 
     mem = top[3].match(/Real: ([^\/]+)\/([^\/]+) /) || [ nil, '0', '0' ]
