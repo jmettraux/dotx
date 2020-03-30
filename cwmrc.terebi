@@ -15,11 +15,13 @@ color inactiveborder black
 #bind-key 4-r reload
 #bind-key 4-Return terminal
 
+command term "jt -f \"Hack:size=10\""
+
 bind-key M-1  "jt -f \"Hack:size=10\" -g 80x62+0+17"
 bind-key M-2  "jt -f \"Hack:size=10\" -g 158x62+1+17"
 bind-key M-3  "jt -f \"Hack:size=10\" -g 80x62+1274+17"
 
-bind-key CM-Delete    "xlock -mode random"
+unbind-key CM-Delete
 bind-key M-BackSpace  "xlock -mode random"
 
 bind-key M-r  "dmenu_run -b -fn \"Hack:size=12\""
