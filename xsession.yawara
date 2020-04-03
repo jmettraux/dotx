@@ -14,7 +14,8 @@ xmodmap ~/.x/modmap.yawara
 
 feh --bg-fill /home/jmettraux/wallpapers/cata.jpg
 
-st -f "Terminus:size=14" -g 257x1+0+0 -T termbar -e ~/.x/termbar.yawara &
+st -f "Terminus:size=13" -g 260x1+0+0 -T termbar -e ~/.x/termbar.yawara &
+
 
 
 LC_CTYPE=en_US.UTF-8 \
