@@ -21,7 +21,7 @@ bind-key M-1 "jt -f \"Hack:size=16\" -g 116x54+0+24"
 bind-key M-2 "jt -f \"Hack:size=16\" -g 80x54+1514+24"
 
 unbind-key CM-Delete
-bind-key M-BackSpace "xlock -mode random"
+bind-key M-BackSpace "pkill -USR1 xidle"
 
 bind-key M-r "dmenu_run -b -fn \"Hack:size=14\""
 
