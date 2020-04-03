@@ -17,13 +17,15 @@ color inactiveborder black
 
 command term "jt -f \"Hack:size=16\""
 
-bind-key M-1  "jt -f \"Hack:size=16\" -g 116x54+0+28"
-bind-key M-2  "jt -f \"Hack:size=16\" -g 80x54+1274+28"
+bind-key M-1 "jt -f \"Hack:size=16\" -g 116x54+0+24"
+bind-key M-2 "jt -f \"Hack:size=16\" -g 80x54+1514+24"
 
 unbind-key CM-Delete
-bind-key M-BackSpace  "xlock -mode random"
+bind-key M-BackSpace "xlock -mode random"
 
-bind-key M-r  "dmenu_run -b -fn \"Hack:size=14\""
+bind-key M-r "dmenu_run -b -fn \"Hack:size=14\""
+
+bind-key M-; window-rcycle-ingroup
 
 #bind-key M-[  "~/bin/vup"
 #bind-key M-]  "~/bin/vdown"
