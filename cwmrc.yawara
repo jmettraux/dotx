@@ -17,8 +17,8 @@ color inactiveborder black
 
 command term "jt -f \"Hack:size=16\""
 
-bind-key M-1  "jt -f \"Hack:size=16\" -g 116x54+0+17"
-bind-key M-2  "jt -f \"Hack:size=16\" -g 80x62+1274+17"
+bind-key M-1  "jt -f \"Hack:size=16\" -g 116x54+0+28"
+bind-key M-2  "jt -f \"Hack:size=16\" -g 80x54+1274+28"
 
 unbind-key CM-Delete
 bind-key M-BackSpace  "xlock -mode random"
