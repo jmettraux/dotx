@@ -2,12 +2,13 @@
 ignore "termbar"
 #ignore "xconsole"
 
-gap 17 0 0 0
+gap 24 0 0 0
 snapdist 1
 
 #moveamount 10
 #snapdist 25
-#sticky yes
+
+sticky yes
 
 #color activeborder blue
 color inactiveborder black
@@ -25,7 +26,8 @@ bind-key M-BackSpace "pkill -USR1 xidle"
 
 bind-key M-r "dmenu_run -b -fn \"Hack:size=14\""
 
-bind-key M-semicolon window-rcycle
+bind-key M-w window-close
+bind-key M-semicolon window-rcycle-ingroup
 
 #bind-key M-[  "~/bin/vup"
 #bind-key M-]  "~/bin/vdown"

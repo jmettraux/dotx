@@ -70,7 +70,7 @@ begin
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ')
 
     up = top[1].match(/ up (.+)$/)[1] rescue '0 days'
-    up = 'up' + up.gsub(/[,\s]+/, ' ')
+    up = 'up ' + up.gsub(/[,\s]+/, ' ').strip
 
     mprocs = top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs
     procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
