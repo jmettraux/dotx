@@ -3,17 +3,17 @@
 ! called by .xsession -> .x/xsession.terebi
 !
 
-remove Lock = Caps_Lock
-keycode 0x42 = Control_L
-add Control = Control_L
+!remove Lock = Caps_Lock
+!keycode 0x42 = Control_L
+!add Control = Control_L
 
-!keycode 49 = Escape
+keycode 49 = Alt_L
   ! Hankaku-Sankaku (left win)
-!keycode 131
+keycode 131 = Alt_L
   ! Muhenkan (left of space bar)
-!keycode 129
+keycode 129 = Alt_R
   ! Henkan (right of space bar)
-!keycode 208
+keycode 208 = Alt_R
   ! Hiragana-Katana (right of Henkan)
 
 ! Thanks xev for the keycodes
