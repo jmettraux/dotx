@@ -57,13 +57,13 @@ begin
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
       .first
-      .match(/ join ([^ ]+) /)[1] rescue '(no nwid)'
+      .match(/ join ([^ ]+) /)[1] rescue nil
     ip = ifconfig
       .select { |l| l.match(/inet \d/) }
       .reject { |l| l.match(/ 127\.0\.0\.1 /) }
       .first
-      .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
-    net = "net #{nwid} #{ip}"
+      .match(/inet ([^ ]+) /)[1] rescue '(no ip addr)'
+    net = [ 'net', nwid, ip ].compact.join(' ')
 
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ')
 
