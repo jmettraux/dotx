@@ -13,10 +13,12 @@ sticky yes
 #color activeborder blue
 color inactiveborder black
 
+command term "jt -f \"Hack:size=16\""
+
+# key names are taken from /usr/X11R6/include/X11/keysymdef.h
+
 #bind-key 4-r reload
 #bind-key 4-Return terminal
-
-command term "jt -f \"Hack:size=16\""
 
 bind-key M-1 "jt -f \"Hack:size=16\" -g 116x54+0+24"
 bind-key M-2 "jt -f \"Hack:size=16\" -g 80x54+1514+24"
@@ -29,6 +31,6 @@ bind-key M-r "dmenu_run -b -fn \"Hack:size=14\""
 bind-key M-w window-close
 bind-key M-semicolon window-rcycle-ingroup
 
-#bind-key M-[  "~/bin/vup"
-#bind-key M-]  "~/bin/vdown"
+#bind-key M-bracketleft "~/bin/vup"
+#bind-key M-bracketright "~/bin/vdown"
 

@@ -17,15 +17,20 @@ color inactiveborder black
 
 command term "jt -f \"Hack:size=10\""
 
-bind-key M-1  "jt -f \"Hack:size=10\" -g 80x62+0+17"
-bind-key M-2  "jt -f \"Hack:size=10\" -g 158x62+1+17"
-bind-key M-3  "jt -f \"Hack:size=10\" -g 80x62+1274+17"
+# key names are taken from /usr/X11R6/include/X11/keysymdef.h
+
+bind-key M-1 "jt -f \"Hack:size=10\" -g 80x62+0+17"
+bind-key M-2 "jt -f \"Hack:size=10\" -g 158x62+1+17"
+bind-key M-3 "jt -f \"Hack:size=10\" -g 80x62+1274+17"
 
 unbind-key CM-Delete
-bind-key M-BackSpace  "xlock -mode random"
+bind-key M-BackSpace "xlock -mode random"
 
-bind-key M-r  "dmenu_run -b -fn \"Hack:size=12\""
+bind-key M-r "dmenu_run -b -fn \"Hack:size=12\""
 
-#bind-key M-[  "~/bin/vup"
-#bind-key M-]  "~/bin/vdown"
+bind-key M-w window-close
+bind-key M-semicolon window-rcycle-ingroup
+
+bind-key M-bracketleft "~/bin/vup"
+bind-key M-bracketright "~/bin/vdown"
 
