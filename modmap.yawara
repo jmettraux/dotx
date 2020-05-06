@@ -10,14 +10,16 @@ add Control = Control_L
 keycode 49 = Escape
   ! Hankaku-Sankaku turned to Escape
 
-!keycode 131
+keycode 115 = Alt_L
+  ! Win key
+keycode 131 = Alt_L
   ! Muhenkan (left of space bar)
-!keycode 129
+keycode 129 = Alt_R
   ! Henkan (right of space bar)
-!keycode 208
+keycode 208 = Alt_R
   ! Hiragana-Katana (right of Henkan)
-!keycode 117
-  ! Menu (right of Alt_R)
+!keycode 111
+  ! PrtSc (right of Alt_R)
 
 ! Thanks xev for the keycodes
 
