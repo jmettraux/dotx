@@ -10,7 +10,8 @@ require 'pp'
 
 #RES = "[0;0m"
 #DGY = "[90m"
-DGY = "[32m"
+RED = "[31m"
+GRN = "[32m"
   #
   # reset 0;0
   # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
@@ -89,7 +90,8 @@ begin
 
     rembat = hw['sensors.acpibat0.watthour3'].split(' Wh').first.to_f
     maxbat = hw['sensors.acpibat0.watthour4'].split(' Wh').first.to_f
-    bat = sprintf('bat %2.2f%%', (rembat / maxbat * 100))
+    perbat = rembat / maxbat * 100
+    bat = sprintf('bat %2.2f%%', perbat)
 
     now = Time.now.to_s
 
@@ -104,7 +106,10 @@ begin
     space = 10 if space < 1
     space = ' ' * space
 
-    print "\n" << DGY << ls << space << rss << '  '
+    ls = ls.gsub(/ bat \d+\.\d+%/) { |m| RED + m + GRN } if perbat < 33.33
+      # color after the text lengths have been used to position the text...
+
+    print "\n" << GRN << ls << space << rss << '  '
 
     sleep 1
   end
