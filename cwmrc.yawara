@@ -34,5 +34,6 @@ bind-key M-semicolon window-rcycle-ingroup
 #bind-key M-bracketleft "~/bin/vup"
 #bind-key M-bracketright "~/bin/vdown"
 
+bind-key M-3 "jt -f \"Hack:size=16\" -g 196x54+0+24"
 bind-key M-T "jt -f \"Hack:size=16\" -g 196x54+0+24 htop -t"
 
