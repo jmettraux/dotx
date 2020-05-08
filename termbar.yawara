@@ -87,7 +87,7 @@ begin
     temp = (hw['sensors.cpu0.temp0'].split(' ')[0] rescue '0').to_f
     speed = hw['cpuspeed'] || '0'
     idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
-    cpu = sprintf("cpu s%s %3.2f%% t%0.2fC", speed, 100.0 - idle, temp)
+    cpu = sprintf("cpu s%4s %3.2f%% t%0.2fC", speed, 100.0 - idle, temp)
 
     fan = 'fan ' + (hw['sensors.asmc0.fan0'].split(/\s+/)[0] rescue '0') + 'rpm'
 
