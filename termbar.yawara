@@ -24,6 +24,9 @@ GRN = "[32m"
   # bg_light_blue 104 bg_light_magenta 105 bg_light_cyan 106
   # bg_white 107
 
+RED_PERBAT = 33.3
+  # when battery percentage is less than that, go red
+
 
 #debug = false
 #  #
@@ -92,6 +95,7 @@ begin
     maxbat = hw['sensors.acpibat0.watthour4'].split(' Wh').first.to_f
     perbat = rembat / maxbat * 100
     bat = sprintf('bat %2.2f%%', perbat)
+    bat = bat + '  /!\\' if perbat < RED_PERBAT && Time.now.to_i % 2 == 0
 
     now = Time.now.to_s
 
@@ -106,8 +110,9 @@ begin
     space = 10 if space < 1
     space = ' ' * space
 
-    ls = ls.gsub(/ bat \d+\.\d+%/) { |m| RED + m + GRN } if perbat < 33.33
-      # color after the text lengths have been used to position the text...
+    ls = ls.gsub(/ bat \d+\.\d+%(  [^ ]+)?/) { |m| RED + m + GRN } \
+      if perbat < RED_PERBAT
+        # color after the text lengths have been used to position the text...
 
     print "\n" << GRN << ls << space << rss << '  '
 
