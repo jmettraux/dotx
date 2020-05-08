@@ -91,11 +91,13 @@ begin
 
     fan = 'fan ' + (hw['sensors.asmc0.fan0'].split(/\s+/)[0] rescue '0') + 'rpm'
 
+    dirbat = hw['sensors.acpibat0.raw0'].match(/discharging/) ? 'd' : 'c'
     rembat = hw['sensors.acpibat0.watthour3'].split(' Wh').first.to_f
     maxbat = hw['sensors.acpibat0.watthour4'].split(' Wh').first.to_f
     perbat = rembat / maxbat * 100
-    bat = sprintf('bat %2.2f%%', perbat)
-    bat = bat + '  /!\\' if perbat < RED_PERBAT && Time.now.to_i % 2 == 0
+    redbat = perbat < RED_PERBAT && dirbat == 'd'
+    bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
+    bat = bat + '  /!\\' if redbat && Time.now.to_i % 2 == 0
 
     now = Time.now.to_s
 
@@ -110,9 +112,8 @@ begin
     space = 10 if space < 1
     space = ' ' * space
 
-    ls = ls.gsub(/ bat \d+\.\d+%(  [^ ]+)?/) { |m| RED + m + GRN } \
-      if perbat < RED_PERBAT
-        # color after the text lengths have been used to position the text...
+    ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } if redbat
+      # color after the text lengths have been used to position the text...
 
     print "\n" << GRN << ls << space << rss << '  '
 
