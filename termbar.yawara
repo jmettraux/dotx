@@ -27,6 +27,10 @@ GRN = "[32m"
 RED_PERBAT = 33.3
   # when battery percentage is less than that, go red
 
+print "\e[?25l"
+  # hide cursor
+  # https://en.wikipedia.org/wiki/ANSI_escape_code#Terminal_output_sequences
+
 
 #debug = false
 #  #
@@ -108,14 +112,14 @@ begin
 
     rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
 
-    space = cols - ls.length - rss.length - 2
+    space = cols - ls.length - rss.length
     space = 10 if space < 1
     space = ' ' * space
 
     ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } if redbat
       # color after the text lengths have been used to position the text...
 
-    print "\n" << GRN << ls << space << rss << '  '
+    print "\n" << GRN << ls << space << rss
 
     sleep 1
   end
