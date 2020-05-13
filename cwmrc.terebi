@@ -7,7 +7,7 @@ snapdist 1
 
 #moveamount 10
 #snapdist 25
-#sticky yes
+sticky yes
 
 #color activeborder blue
 color inactiveborder black
@@ -19,11 +19,11 @@ command term "jt -f \"Hack:size=10\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-bind-key M-1 "jt -f \"Hack:size=10\" -g 80x62+0+17"
-bind-key M-2 "jt -f \"Hack:size=10\" -g 158x62+1+17"
-bind-key M-3 "jt -f \"Hack:size=10\" -g 80x62+1274+17"
-bind-key M-9 "jt -f \"Hack:size=10\" -g 238x62+0+17"
-bind-key M-T "jt -f \"Hack:size=10\" -g 238x62+0+17 htop -t"
+bind-key MC-1 "jt -f \"Hack:size=10\" -g 80x62+0+17"
+bind-key MC-2 "jt -f \"Hack:size=10\" -g 158x62+1+17"
+bind-key MC-3 "jt -f \"Hack:size=10\" -g 80x62+1274+17"
+bind-key MC-9 "jt -f \"Hack:size=10\" -g 238x62+0+17"
+bind-key MC-T "jt -f \"Hack:size=10\" -g 238x62+0+17 htop -t"
 
 unbind-key CM-Delete
 bind-key M-BackSpace "xlock -mode random"
@@ -36,4 +36,25 @@ bind-key M-semicolon window-rcycle-ingroup
 bind-key M-bracketleft "~/bin/vup"
 bind-key M-bracketright "~/bin/vdown"
 
+bind-key M-0 group-only-0
+bind-key M-1 group-only-1
+bind-key M-2 group-only-2
+bind-key M-3 group-only-3
+bind-key M-4 group-only-4
+bind-key M-5 group-only-5
+bind-key M-6 group-only-6
+bind-key M-7 group-only-7
+bind-key M-8 group-only-8
+bind-key M-9 group-only-9
+
+bind-key MSC-0 window-movetogroup-0
+bind-key MSC-1 window-movetogroup-1
+bind-key MSC-2 window-movetogroup-2
+bind-key MSC-3 window-movetogroup-3
+bind-key MSC-4 window-movetogroup-4
+bind-key MSC-5 window-movetogroup-5
+bind-key MSC-6 window-movetogroup-6
+bind-key MSC-7 window-movetogroup-7
+bind-key MSC-8 window-movetogroup-8
+bind-key MSC-9 window-movetogroup-9
 
