@@ -58,3 +58,5 @@ bind-key MSC-7 window-movetogroup-7
 bind-key MSC-8 window-movetogroup-8
 bind-key MSC-9 window-movetogroup-9
 
+bind-key M-c "xdotool search --name chromium windowactivate %@"
+

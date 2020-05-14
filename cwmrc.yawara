@@ -76,5 +76,5 @@ bind-key MS-9 window-movetogroup-9
 
 autogroup 0 termbar
 
-bind-key M-c "xdotool search --name chromium windowactivate"
+bind-key M-c "xdotool search --name chromium windowactivate %@"
 
