@@ -19,11 +19,18 @@ command term "jt -f \"Hack:size=10\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-bind-key MC-u "jt -f \"Hack:size=10\" -g 80x62+0+17"
-bind-key MC-i "jt -f \"Hack:size=10\" -g 158x62+1+17"
-bind-key MC-o "jt -f \"Hack:size=10\" -g 80x62+1274+17"
-bind-key MC-p "jt -f \"Hack:size=10\" -g 238x62+0+17"
-bind-key MS-t "jt -f \"Hack:size=10\" -g 238x62+0+17 htop -t"
+bind-key MS-u "jt -f \"Hack:size=10\" -n jtu -g 80x62+0+17"
+bind-key MS-i "jt -f \"Hack:size=10\" -n jti -g 158x62+1+17"
+bind-key MS-o "jt -f \"Hack:size=10\" -n jto -g 80x62+1274+17"
+bind-key MS-p "jt -f \"Hack:size=10\" -n jtp -g 238x62+0+17"
+bind-key MS-t "jt -f \"Hack:size=10\" -n jtop -g 238x62+0+17 htop -t"
+
+bind-key M-u "xdotool search --classname jtu windowactivate"
+bind-key M-i "xdotool search --classname jti windowactivate"
+bind-key M-o "xdotool search --classname jto windowactivate"
+bind-key M-p "xdotool search --classname jtp windowactivate"
+
+bind-key M-c "xdotool search --name chromium windowactivate %@"
 
 unbind-key CM-Delete
 bind-key M-BackSpace "xlock -mode random"
@@ -58,5 +65,5 @@ bind-key MSC-7 window-movetogroup-7
 bind-key MSC-8 window-movetogroup-8
 bind-key MSC-9 window-movetogroup-9
 
-bind-key M-c "xdotool search --name chromium windowactivate %@"
+autogroup 0 termbar
 
