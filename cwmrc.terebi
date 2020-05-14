@@ -3,10 +3,10 @@ ignore "termbar"
 #ignore "xconsole"
 
 gap 17 0 0 0
-snapdist 1
 
-#moveamount 10
-#snapdist 25
+moveamount 1
+snapdist 0
+
 sticky yes
 
 #color activeborder blue
@@ -19,11 +19,11 @@ command term "jt -f \"Hack:size=10\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-bind-key MC-1 "jt -f \"Hack:size=10\" -g 80x62+0+17"
-bind-key MC-2 "jt -f \"Hack:size=10\" -g 158x62+1+17"
-bind-key MC-3 "jt -f \"Hack:size=10\" -g 80x62+1274+17"
-bind-key MC-9 "jt -f \"Hack:size=10\" -g 238x62+0+17"
-bind-key MC-T "jt -f \"Hack:size=10\" -g 238x62+0+17 htop -t"
+bind-key MC-u "jt -f \"Hack:size=10\" -g 80x62+0+17"
+bind-key MC-i "jt -f \"Hack:size=10\" -g 158x62+1+17"
+bind-key MC-o "jt -f \"Hack:size=10\" -g 80x62+1274+17"
+bind-key MC-p "jt -f \"Hack:size=10\" -g 238x62+0+17"
+bind-key MS-t "jt -f \"Hack:size=10\" -g 238x62+0+17 htop -t"
 
 unbind-key CM-Delete
 bind-key M-BackSpace "xlock -mode random"
