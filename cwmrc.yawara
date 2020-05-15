@@ -30,12 +30,14 @@ bind-key M-i "xdotool search --classname jti windowactivate"
 bind-key M-o "xdotool search --classname jto windowactivate"
 bind-key M-p "xdotool search --classname jtp windowactivate"
 
+bind-key M-w "xdotool search --name chromium windowactivate %@"
+
 unbind-key CM-Delete
 bind-key M-BackSpace "pkill -USR1 xidle"
 
 bind-key M-r "dmenu_run -b -fn \"Hack:size=14\""
 
-bind-key M-w window-close
+bind-key M-x window-close
 bind-key M-semicolon window-rcycle-ingroup
 
 #bind-key M-bracketleft "~/bin/vup"
@@ -75,6 +77,4 @@ bind-key MS-8 window-movetogroup-8
 bind-key MS-9 window-movetogroup-9
 
 autogroup 0 termbar
-
-bind-key M-c "xdotool search --name chromium windowactivate %@"
 
