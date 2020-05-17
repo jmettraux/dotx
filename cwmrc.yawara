@@ -32,8 +32,8 @@ bind-key M-p "xdotool search --classname jtp windowactivate"
 
 #bind-key M-w "xdotool search --name chromium windowactivate %@"
 #bind-key M-w "xdotool search --name chromium windowactivate %@ && xdotool search --name chromium mousemove --window %@ 90 90"
-bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 90 90"
-  # activate Chromium then move to its x90, y90
+bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 210 90"
+  # activate Chromium then move to its x210, y90
 
 unbind-key CM-Delete
 bind-key M-BackSpace "pkill -USR1 xidle"
