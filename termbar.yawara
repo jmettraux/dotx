@@ -52,6 +52,8 @@ begin
     hw = `sysctl hw`
       .split("\n")
       .inject({}) { |h, l| k, v = l.split('='); h[k.split('.', 2).last] = v; h }
+    hws = hw
+      .inject({}) { |h, (k, v)| h[k[8..-1]] = v if k.match(/\Asensors\./); h }
     ifconfig = `ifconfig`
       .split("\n")
       .collect(&:strip)
@@ -88,16 +90,16 @@ begin
     fmem = top[3].match(/ Free: ([^ ]+) /)[1] rescue '0'
     mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
 
-    temp = (hw['sensors.cpu0.temp0'].split(' ')[0] rescue '0').to_f
+    temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
     speed = hw['cpuspeed'] || '0'
     idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
     cpu = sprintf("cpu s%4s %3.2f%% t%0.2fC", speed, 100.0 - idle, temp)
 
-    fan = 'fan ' + (hw['sensors.asmc0.fan0'].split(/\s+/)[0] rescue '0') + 'rpm'
+    fan = "fan #{(hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0')}rpm"
 
-    dirbat = hw['sensors.acpibat0.raw0'].match(/discharging/) ? 'd' : 'c'
-    rembat = hw['sensors.acpibat0.watthour3'].split(' Wh').first.to_f
-    maxbat = hw['sensors.acpibat0.watthour4'].split(' Wh').first.to_f
+    dirbat = hws['acpibat0.raw0'].match(/discharging/) ? 'd' : 'c'
+    rembat = hws['acpibat0.watthour3'].split(' Wh').first.to_f
+    maxbat = hws['acpibat0.watthour4'].split(' Wh').first.to_f
     perbat = rembat / maxbat * 100
     redbat = perbat < RED_PERBAT && dirbat == 'd'
     bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
