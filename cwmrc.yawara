@@ -16,9 +16,6 @@ command term "jt -f \"Hack:size=16\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-#bind-key 4-r reload
-#bind-key 4-Return terminal
-
 bind-key MS-u "jt -f \"Hack:size=16\" -n jtu -g 116x54+0+24"
 bind-key MS-i "jt -f \"Hack:size=16\" -n jti -g 80x54+1514+24"
 bind-key MS-o "jt -f \"Hack:size=16\" -n jto -g 80x54+1514+24"
@@ -30,8 +27,6 @@ bind-key M-i "xdotool search --classname jti windowactivate"
 bind-key M-o "xdotool search --classname jto windowactivate"
 bind-key M-p "xdotool search --classname jtp windowactivate"
 
-#bind-key M-w "xdotool search --name chromium windowactivate %@"
-#bind-key M-w "xdotool search --name chromium windowactivate %@ && xdotool search --name chromium mousemove --window %@ 90 90"
 bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 210 90"
   # activate Chromium then move to its x210, y90
 

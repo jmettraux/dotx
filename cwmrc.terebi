@@ -12,9 +12,6 @@ sticky yes
 #color activeborder blue
 color inactiveborder black
 
-#bind-key 4-r reload
-#bind-key 4-Return terminal
-
 command term "jt -f \"Hack:size=10\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
@@ -30,14 +27,15 @@ bind-key M-i "xdotool search --classname jti windowactivate"
 bind-key M-o "xdotool search --classname jto windowactivate"
 bind-key M-p "xdotool search --classname jtp windowactivate"
 
-bind-key M-c "xdotool search --name chromium windowactivate %@"
+bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 210 90"
+  # activate Chromium then move to its x210, y90
 
 unbind-key CM-Delete
 bind-key M-BackSpace "xlock -mode random"
 
 bind-key M-r "dmenu_run -b -fn \"Hack:size=12\""
 
-bind-key M-w window-close
+bind-key M-x window-close
 bind-key M-semicolon window-rcycle-ingroup
 
 bind-key M-bracketleft "~/bin/vup"
@@ -54,16 +52,27 @@ bind-key M-7 group-only-7
 bind-key M-8 group-only-8
 bind-key M-9 group-only-9
 
-bind-key MSC-0 window-movetogroup-0
-bind-key MSC-1 window-movetogroup-1
-bind-key MSC-2 window-movetogroup-2
-bind-key MSC-3 window-movetogroup-3
-bind-key MSC-4 window-movetogroup-4
-bind-key MSC-5 window-movetogroup-5
-bind-key MSC-6 window-movetogroup-6
-bind-key MSC-7 window-movetogroup-7
-bind-key MSC-8 window-movetogroup-8
-bind-key MSC-9 window-movetogroup-9
+bind-key MC-0 group-toggle-0
+bind-key MC-1 group-toggle-1
+bind-key MC-2 group-toggle-2
+bind-key MC-3 group-toggle-3
+bind-key MC-4 group-toggle-4
+bind-key MC-5 group-toggle-5
+bind-key MC-6 group-toggle-6
+bind-key MC-7 group-toggle-7
+bind-key MC-8 group-toggle-8
+bind-key MC-9 group-toggle-9
+
+bind-key MS-0 window-movetogroup-0
+bind-key MS-1 window-movetogroup-1
+bind-key MS-2 window-movetogroup-2
+bind-key MS-3 window-movetogroup-3
+bind-key MS-4 window-movetogroup-4
+bind-key MS-5 window-movetogroup-5
+bind-key MS-6 window-movetogroup-6
+bind-key MS-7 window-movetogroup-7
+bind-key MS-8 window-movetogroup-8
+bind-key MS-9 window-movetogroup-9
 
 autogroup 0 termbar
 
