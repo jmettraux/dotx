@@ -85,3 +85,6 @@ bind-key MS-9 window-movetogroup-9
 
 autogroup 0 termbar
 
+bind-key CS-k "xdotool click 4"
+bind-key CS-j "xdotool click 5"
+
