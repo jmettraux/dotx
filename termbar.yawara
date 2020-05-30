@@ -10,8 +10,9 @@ require 'pp'
 
 #RES = "[0;0m"
 #DGY = "[90m"
-RED = "[31m"
-GRN = "[32m"
+RED = "[0;31m"
+GRN = "[0;32m"
+BGN = "[1;32m"
   #
   # reset 0;0
   # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
@@ -91,11 +92,12 @@ begin
     mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
 
     temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
-    speed = hw['cpuspeed'] || '0'
+    cspeed = hw['cpuspeed'] || '0'
     idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
-    cpu = sprintf("cpu s%4s %3.2f%% t%0.2fC", speed, 100.0 - idle, temp)
+    cpu = sprintf("cpu s%4s %3.2f%% t%0.2fC", cspeed, 100.0 - idle, temp)
 
-    fan = "fan #{(hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0')}rpm"
+    fspeed = hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0'
+    fan = "fan #{fspeed}rpm"
 
     dirbat = hws['acpibat0.raw0'].match(/discharging/) ? 'd' : 'c'
     rembat = hws['acpibat0.watthour3'].split(' Wh').first.to_f
@@ -118,8 +120,14 @@ begin
     space = 10 if space < 1
     space = ' ' * space
 
-    ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } if redbat
-      # color after the text lengths have been used to position the text...
+    ls = ls.gsub(/( cpu s)(\d+)/) { |m| $1 + BGN + $2 + GRN } \
+      if cspeed.to_i > 2300
+    ls = ls.gsub(/( fan )(\d+)/) { |m| $1 + BGN + $2 + GRN } \
+      if fspeed.to_i > 2000
+    ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } \
+      if redbat
+        #
+        # color after the text lengths have been used to position the text...
 
     print "\n" << GRN << ls << space << rss
 
