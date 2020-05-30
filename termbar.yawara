@@ -10,9 +10,12 @@ require 'pp'
 
 #RES = "[0;0m"
 #DGY = "[90m"
-RED = "[0;31m"
 GRN = "[0;32m"
+YEL = "[0;33m"
+RED = "[0;31m"
 BGN = "[1;32m"
+BYL = "[1;33m"
+BRD = "[1;31m"
   #
   # reset 0;0
   # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
@@ -40,6 +43,21 @@ print "\e[?25l"
 #end
 
 cols = `tput cols`.to_i
+
+
+def colo(value, th_bgn, th_yel=nil, th_byl=nil, th_red=nil, th_brd=nil)
+
+  v = value.to_i
+
+  c = GRN
+  c = BGN if th_bgn && v > th_bgn
+  c = YEL if th_yel && v > th_yel
+  c = BYL if th_byl && v > th_byl
+  c = RED if th_red && v > th_red
+  c = BRD if th_brd && v > th_brd
+
+  c + value + GRN
+end
 
 
 begin
@@ -137,10 +155,10 @@ begin
     space = 10 if space < 1
     space = ' ' * space
 
-    ls = ls.gsub(/( cpu s)(\d+)/) { |m| $1 + BGN + $2 + GRN } \
-      if cspeed.to_i > 2300
-    ls = ls.gsub(/( fan )(\d+)/) { |m| $1 + BGN + $2 + GRN } \
-      if fspeed.to_i > 2657
+    ls = ls.gsub(
+      /( cpu s)(\d+)/) { |m| $1 + colo($2, nil, 2300) }
+    ls = ls.gsub(
+      /( fan )(\d+)/) { |m| $1 + colo($2, 2700, 3000, 3700, 4000, 4700) }
     ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } \
       if redbat
         #
