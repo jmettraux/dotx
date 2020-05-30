@@ -32,8 +32,12 @@ RED_PERBAT = 33.3
   # when battery percentage is less than that, go red
 
 print "\e[?25l"
+  #
   # hide cursor
   # https://en.wikipedia.org/wiki/ANSI_escape_code#Terminal_output_sequences
+  #
+at_exit { print "\e[?25h" } # reshow cursor on exit, useful when debugging
+
 
 
 #debug = false
