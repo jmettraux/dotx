@@ -50,9 +50,17 @@ begin
 
     # gather info
 
-    hw = `sysctl hw`
+    sc = `sysctl hw kern`
       .split("\n")
-      .inject({}) { |h, l| k, v = l.split('='); h[k.split('.', 2).last] = v; h }
+      .inject({}) { |h, l|
+        k, v = l.split('=');# h[k.split('.', 2).last] = v; h }
+        if v
+          k0, k1 = k.split('.', 2)
+          (h[k0] ||= {})[k1] = v
+        end
+        h }
+    hw, kn = sc['hw'], sc['kern']
+
     hws = hw
       .inject({}) { |h, (k, v)| h[k[8..-1]] = v if k.match(/\Asensors\./); h }
     ifconfig = `ifconfig`
@@ -61,11 +69,18 @@ begin
     top = `top -1 -d 1 -p 1`
       .split("\n")
 
-    machine = %w[ vendor product model _machine ]
-      .collect { |k| k[0, 1] == '_' ? "(#{hw[k[1..-1]]})" : hw[k] }
+    host = kn['hostname']
+
+    kernel = %w[ ostype osrelease ]
+      .collect { |k| kn[k] }
       .compact
       .join(' ')
-      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU/, '')
+
+    machine = %w[ vendor product model machine ]
+      .collect { |k| hw[k] }
+      .compact
+      .join(' ')
+      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 1\.80GHz|LENOVO | Core/, '')
 
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
@@ -109,8 +124,10 @@ begin
 
     now = Time.now.to_s
 
-    ls = [ machine, net, procs, mem, cpu, fan, up, bat ].join(' | ') + ' '
-    rs = [ now ].join(' | ')
+    ls = [ host, kernel, machine, net, procs, mem, cpu, fan, up, bat ]
+      .join(' | ') + ' '
+    rs = [ now ]
+      .join(' | ')
 
     # output
 
@@ -123,7 +140,7 @@ begin
     ls = ls.gsub(/( cpu s)(\d+)/) { |m| $1 + BGN + $2 + GRN } \
       if cspeed.to_i > 2300
     ls = ls.gsub(/( fan )(\d+)/) { |m| $1 + BGN + $2 + GRN } \
-      if fspeed.to_i > 2000
+      if fspeed.to_i > 2657
     ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } \
       if redbat
         #
