@@ -85,3 +85,8 @@ bind-key MS-9 window-movetogroup-9
 
 autogroup 0 termbar
 
+bind-key CS-k "xdotool click 4"
+bind-key CS-j "xdotool click 5"
+#bind-mouse M-4 "xdotool key Shift+Page_Up"
+#bind-mouse M-5 "xdotool key Shift+Page_Down"
+
