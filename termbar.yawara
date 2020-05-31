@@ -162,6 +162,8 @@ begin
     ls = ls.gsub(
       /( cpu s)(\d+)/) { |m| $1 + colo($2, nil, 2300) }
     ls = ls.gsub(
+      /(% t)(\d+\.\d+)(C )/) { |m| $1 + colo($2, 55, 70, 80, 90, 100) + $3 }
+    ls = ls.gsub(
       /( fan )(\d+)/) { |m| $1 + colo($2, 2700, 3000, 3700, 4000, 4700) }
     ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } \
       if redbat
