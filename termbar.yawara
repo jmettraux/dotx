@@ -8,8 +8,7 @@
 
 require 'pp'
 
-#RES = "[0;0m"
-#DGY = "[90m"
+DGY = "[0;90m"
 GRN = "[0;32m"
 YEL = "[0;33m"
 RED = "[0;31m"
@@ -28,8 +27,8 @@ BRD = "[1;31m"
   # bg_light_blue 104 bg_light_magenta 105 bg_light_cyan 106
   # bg_white 107
 
-RED_PERBAT = 33.3
-  # when battery percentage is less than that, go red
+WARN_PERBAT = 33.0
+  # when battery percentage is less than that, flash warning sign
 
 print "\e[?25l"
   #
@@ -52,6 +51,7 @@ cols = `tput cols`.to_i
 def colo(value, th_bgn, th_yel=nil, th_byl=nil, th_red=nil, th_brd=nil)
 
   v = value.to_i
+  value = value[1..-1] if value[0, 1] == '-'
 
   c = GRN
   c = BGN if th_bgn && v > th_bgn
@@ -140,9 +140,9 @@ begin
     rembat = hws['acpibat0.watthour3'].split(' Wh').first.to_f
     maxbat = hws['acpibat0.watthour4'].split(' Wh').first.to_f
     perbat = rembat / maxbat * 100
-    redbat = perbat < RED_PERBAT && dirbat == 'd'
+    warnbat = perbat < WARN_PERBAT && dirbat == 'd'
     bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
-    bat = bat + '  /!\\' if redbat && Time.now.to_i % 2 == 0
+    bat = bat + '  /!\\' if warnbat
 
     now = Time.now.to_s
 
@@ -160,15 +160,22 @@ begin
     space = ' ' * space
 
     ls = ls.gsub(
-      /( cpu s)(\d+)/) { |m| $1 + colo($2, nil, 2300) }
+      /( cpu s)(\d+)/) { |m|
+        $1 + colo($2, nil, 2300) }
     ls = ls.gsub(
-      /(% t)(\d+\.\d+)(C )/) { |m| $1 + colo($2, 55, 70, 80, 90, 100) + $3 }
+      /(% t)(\d+\.\d+)(C )/) { |m|
+        $1 + colo($2, 55, 70, 80, 90, 100) + $3 }
     ls = ls.gsub(
-      /( fan )(\d+)/) { |m| $1 + colo($2, 2700, 3000, 3700, 4000, 4700) }
-    ls = ls.gsub(/ bat \d+\.\d+% d(  [^ ]+)?/) { |m| RED + m + GRN } \
-      if redbat
-        #
-        # color after the text lengths have been used to position the text...
+      /( fan )(\d+)/) { |m|
+        $1 + colo($2, 2700, 3000, 3700, 4000, 4700) }
+    ls = ls.gsub(
+      /( bat\s+)(\d+\.\d+%)( d)/) { |m|
+        $1 + colo('-' + $2, -49, -39, -29, -19, -9) + $3 }
+    ls = ls.gsub(
+      / \/!\\/) { |m|
+        ((Time.now.to_i % 2 == 0) ? BRD : RED) + m + GRN }
+          #
+          # color after the text lengths have been used to position the text...
 
     print "\n" << GRN << ls << space << rss
 
