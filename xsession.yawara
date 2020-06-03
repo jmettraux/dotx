@@ -14,7 +14,7 @@ xmodmap ~/.x/modmap.yawara
 
 feh --bg-fill /home/jmettraux/wallpapers/cata.jpg
 
-xidle -program "/usr/X11R6/bin/xlock -mode random" -timeout 300 &
+xidle -program "/usr/X11R6/bin/xlock -mode random" -timeout 540 &
 
 st -f "Terminus:size=13" -g 255x1+0+0 -T termbar -c termbar -e ~/.x/termbar.yawara &
 
