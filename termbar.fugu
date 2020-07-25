@@ -1,17 +1,208 @@
-#!/bin/sh
+#!/usr/local/bin/ruby26
 
-while true; do
+#
+# termbar.fugu
+#
+# vim set ft=ruby:
+#
 
-  CPU_SPEED=$(sysctl hw.cpuspeed | cut -d "=" -f 2 | cut -d "." -f 1)
-  CPU_TEMP=$(sysctl hw.sensors.cpu0.temp0 | cut -d "=" -f 2 | cut -d "." -f 1)
-  RAM=$(top | grep Memory | awk {'print $3 " / " $6'})
-  BAT_STATUS=$(sysctl hw.sensors.acpiac0.indicator0 | cut -d "=" -f 2 | cut -d "." -f 1)
-  BAT=$(apm -l)
-  DATE=$(date)
-  NWID=$(ifconfig | grep ieee | awk {'print $3'})
-  IP=$(ifconfig | grep inet | tail -1 | awk {'print $2'})
+require 'pp'
 
-  echo -en "  $USER | $DATE | CPU: $CPU_SPEED - $CPU_TEMP | $RAM | Bat: $BAT - $BAT_STATUS | $NWID $IP   \r"
-  sleep 1
-done
+DGY = "[0;90m"
+GRN = "[0;32m"
+YEL = "[0;33m"
+RED = "[0;31m"
+BGN = "[1;32m"
+BYL = "[1;33m"
+BRD = "[1;31m"
+  #
+  # reset 0;0
+  # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
+  # black 30 red 31 green 32 yellow 33 blue 34 magenta 35 cyan 36
+  # light_gray 37 dark_gray 90 light_red 91 light_green 92
+  # light_yellow 93 light_blue 94 light_magenta 95 light_cyan 96 white 97
+  # bg_default 49 bg_black 40 bg_red 41 bg_green 42 bg_yellow 43 bg_blue 44
+  # bg_magenta 45 bg_cyan 46 bg_light_gray 47 bg_dark_gray 100
+  # bg_light_red 101 bg_light_green 102 bg_light_yellow 103
+  # bg_light_blue 104 bg_light_magenta 105 bg_light_cyan 106
+  # bg_white 107
+
+WARN_PERBAT = 33.0
+  # when battery percentage is less than that, flash warning sign
+
+print "\e[?25l"
+  #
+  # hide cursor
+  # https://en.wikipedia.org/wiki/ANSI_escape_code#Terminal_output_sequences
+  #
+at_exit { print "\e[?25h" } # reshow cursor on exit, useful when debugging
+
+
+
+#debug = false
+#  #
+#Signal.trap('USR1') do
+#  debug = ! debug
+#end
+
+cols = `tput cols`.to_i
+
+
+def colo(value, th_bgn, th_yel=nil, th_byl=nil, th_red=nil, th_brd=nil)
+
+  v = value.to_i
+  value = value[1..-1] if value[0, 1] == '-'
+
+  c = GRN
+  c = BGN if th_bgn && v > th_bgn
+  c = YEL if th_yel && v > th_yel
+  c = BYL if th_byl && v > th_byl
+  c = RED if th_red && v > th_red
+  c = BRD if th_brd && v > th_brd
+
+  c + value + GRN
+end
+
+
+begin
+
+  mprocs = [ nil, '0', '0' ]
+
+  loop do
+
+    # gather info
+
+    sc = `sysctl hw kern`
+      .split("\n")
+      .inject({}) { |h, l|
+        k, v = l.split('=');# h[k.split('.', 2).last] = v; h }
+        if v
+          k0, k1 = k.split('.', 2)
+          (h[k0] ||= {})[k1] = v
+        end
+        h }
+    hw, kn = sc['hw'], sc['kern']
+
+    hws = hw
+      .inject({}) { |h, (k, v)| h[k[8..-1]] = v if k.match(/\Asensors\./); h }
+    ifconfig = `ifconfig`
+      .split("\n")
+      .collect(&:strip)
+    top = `top -1 -d 1 -p 1`
+      .split("\n")
+
+    host = kn['hostname']
+
+    kernel = %w[ ostype osrelease ]
+      .collect { |k| kn[k] }
+      .compact
+      .join(' ')
+
+    #machine = %w[ vendor product model machine ]
+    #  .collect { |k| hw[k] }
+    #  .compact
+    #  .join(' ')
+    #  .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 1\.80GHz|LENOVO | Core/, '')
+
+    nwid = ifconfig
+      .select { |l| l.match(/ieee80211/) }
+      .first
+      .match(/ join ([^ ]+) /)[1] rescue '(no nwid)'
+    ip = ifconfig
+      .select { |l| l.match(/inet \d/) }
+      .reject { |l| l.match(/ 127\.0\.0\.1 /) }
+      .first
+      .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
+    net = "net #{nwid} #{ip}"
+
+    lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ')
+
+    up = top[1].match(/ up (.+)$/)[1] rescue '0 days'
+    up = 'up ' + up.gsub(/[,\s]+/, ' ').strip
+
+    mprocs = top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs
+    procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
+    procs = sprintf("procs %3d/%1d load %s", procs[0], procs[1], lod)
+
+    mem = top[3].match(/Real: ([^\/]+)\/([^\/]+) /) || [ nil, '0', '0' ]
+    fmem = top[3].match(/ Free: ([^ ]+) /)[1] rescue '0'
+    mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
+
+    temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
+    cspeed = hw['cpuspeed'] || '0'
+    idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
+    cpu = sprintf("cpu s%4s %3.2f%% t%0.2fC", cspeed, 100.0 - idle, temp)
+
+    fspeed = hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0'
+    fan = "fan #{fspeed}rpm"
+
+    dirbat = hws['acpibat0.raw0'].match(/discharging/) ? 'd' : 'c'
+    rembat = hws['acpibat0.watthour3'].split(' Wh').first.to_f
+    maxbat = hws['acpibat0.watthour4'].split(' Wh').first.to_f
+    perbat = rembat / maxbat * 100
+    warnbat = perbat < WARN_PERBAT && dirbat == 'd'
+    bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
+    bat = bat + '  /!\\' if warnbat
+
+    now = Time.now.to_s
+
+    #ls = [ host, kernel, machine, net, procs, mem, cpu, fan, up, bat ]
+    ls = [ host, kernel, net, procs, mem, cpu, fan, up, bat ]
+      .join(' | ') + ' '
+    rs = [ now ]
+      .join(' | ')
+
+    # output
+
+    rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
+
+    space = cols - ls.length - rss.length
+    space = 10 if space < 1
+    space = ' ' * space
+
+    ls = ls.gsub(
+      /( cpu s)(\d+)/) { |m|
+        $1 + colo($2, nil, 2300) }
+    ls = ls.gsub(
+      /(% t)(\d+\.\d+)(C )/) { |m|
+        $1 + colo($2, 55, 70, 80, 90, 100) + $3 }
+    ls = ls.gsub(
+      /( fan )(\d+)/) { |m|
+        $1 + colo($2, 2700, 3000, 3700, 4000, 4700) }
+    ls = ls.gsub(
+      /( bat\s+)(\d+\.\d+)(% d)/) { |m|
+        $1 + colo('-' + $2, -49, -39, -29, -19, -9) + $3 }
+    ls = ls.gsub(
+      / \/!\\/) { |m|
+        ((Time.now.to_i % 2 == 0) ? BRD : RED) + m + GRN }
+          #
+          # color after the text lengths have been used to position the text...
+
+    print "\n" << GRN << ls << space << rss
+
+    sleep 1
+  end
+
+rescue => err
+
+  print "\n" + err.inspect + " at " + err.backtrace[0]
+  sleep
+end
+
+##!/bin/sh
+#
+#while true; do
+#
+#  CPU_SPEED=$(sysctl hw.cpuspeed | cut -d "=" -f 2 | cut -d "." -f 1)
+#  CPU_TEMP=$(sysctl hw.sensors.cpu0.temp0 | cut -d "=" -f 2 | cut -d "." -f 1)
+#  RAM=$(top | grep Memory | awk {'print $3 " / " $6'})
+#  BAT_STATUS=$(sysctl hw.sensors.acpiac0.indicator0 | cut -d "=" -f 2 | cut -d "." -f 1)
+#  BAT=$(apm -l)
+#  DATE=$(date)
+#  NWID=$(ifconfig | grep ieee | awk {'print $3'})
+#  IP=$(ifconfig | grep inet | tail -1 | awk {'print $2'})
+#
+#  echo -en "  $USER | $DATE | CPU: $CPU_SPEED - $CPU_TEMP | $RAM | Bat: $BAT - $BAT_STATUS | $NWID $IP   \r"
+#  sleep 1
+#done
 
