@@ -136,9 +136,19 @@ begin
     fspeed = hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0'
     fan = "fan #{fspeed}rpm"
 
-    dirbat = hws['acpibat0.raw0'].match(/discharging/) ? 'd' : 'c'
-    rembat = hws['acpibat0.watthour3'].split(' Wh').first.to_f
-    maxbat = hws['acpibat0.watthour0'].split(' Wh').first.to_f
+    dirbat =
+      case hws['acpibat0.raw0']
+      when /discharging/ then 'd'
+      when /idle/ then 'i'
+      else 'c'
+      end
+    maxbat = [
+      hws['acpibat0.watthour0'].split(' Wh').first.to_f, # last full capa
+      hws['acpibat0.watthour4'].split(' Wh').first.to_f # design capa
+        ].min
+    rembat =
+      hws['acpibat0.watthour3'].split(' Wh').first.to_f
+
     perbat = rembat / maxbat * 100
     warnbat = perbat < WARN_PERBAT && dirbat == 'd'
     bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
