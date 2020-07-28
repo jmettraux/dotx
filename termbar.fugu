@@ -138,7 +138,7 @@ begin
 
     dirbat = hws['acpibat0.raw0'].match(/discharging/) ? 'd' : 'c'
     rembat = hws['acpibat0.watthour3'].split(' Wh').first.to_f
-    maxbat = hws['acpibat0.watthour4'].split(' Wh').first.to_f
+    maxbat = hws['acpibat0.watthour0'].split(' Wh').first.to_f
     perbat = rembat / maxbat * 100
     warnbat = perbat < WARN_PERBAT && dirbat == 'd'
     bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
