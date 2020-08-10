@@ -26,6 +26,7 @@
 !!URxvt.faceSize: 14
 
 ! https://www.stefaanlippens.net/setting-global-xfig-defaults-for-working-with-lyxlatex.html
+! https://www.xfig.org/frm_options.html
 !
 Fig.specialtext: true
 Fig.inches: false
@@ -33,4 +34,5 @@ Fig.userunit: cm
 Fig.startfontsize: 9
 Fig.startgridmode: 2
 Fig.startposnmode: 2
+!*customization: -color
 
