@@ -93,6 +93,12 @@ bind-key CS-j "xdotool click 5"
 
 # Trying not to get in the way of Inkscape
 
+unbind-key M-Down
+unbind-key M-Up
+  #
+MS-Down window-lower
+MS-Up window-raise
+
 unbind-key M-period
   # M-question      Spawn “exec program” dialog.
 unbind-key M-question
