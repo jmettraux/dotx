@@ -88,3 +88,15 @@ autogroup 0 termbar
 bind-key CS-k "xdotool click 4"
 bind-key CS-j "xdotool click 5"
 
+
+# Trying not to get in the way of Inkscape
+
+unbind-key M-period
+  # M-question      Spawn “exec program” dialog.
+unbind-key M-question
+  # M-period        Spawn “ssh to” dialog.
+unbind-key M-Right
+  # M-Right         Cycle through active groups.
+unbind-key M-Left
+  # M-Left          Reverse cycle through active groups.
+
