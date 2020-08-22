@@ -85,9 +85,19 @@ begin
 
     hws = hw
       .inject({}) { |h, (k, v)| h[k[8..-1]] = v if k.match(/\Asensors\./); h }
+
     ifconfig = `ifconfig`
       .split("\n")
-      .collect(&:strip)
+      .inject({}) { |h, l|
+        if m = l.match(/^([a-z]+\d):/)
+          h[m[1]] = [ l.strip ]
+        else
+          h[h.keys.last] << l.strip
+        end
+        h }
+    iface, ifconfig = ifconfig
+      .find { |k, v| v.find { |l| l.match(/broadcast/) } }
+
     top = `top -1 -d 1 -p 1`
       .split("\n")
 
@@ -107,13 +117,15 @@ begin
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
       .first
-      .match(/ join ([^ ]+) /)[1] rescue '(no nwid)'
+      .match(/ join ([^ ]+) /)[1] rescue ''
+    nwid = nwid.length > 0 ?
+      ' ' + nwid : nwid
     ip = ifconfig
       .select { |l| l.match(/inet \d/) }
       .reject { |l| l.match(/ 127\.0\.0\.1 /) }
       .first
       .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
-    net = "net #{nwid} #{ip}"
+    net = "net #{iface}#{nwid} #{ip}"
 
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ') rescue '-'
 
