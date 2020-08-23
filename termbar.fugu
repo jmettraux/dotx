@@ -85,9 +85,19 @@ begin
 
     hws = hw
       .inject({}) { |h, (k, v)| h[k[8..-1]] = v if k.match(/\Asensors\./); h }
+
     ifconfig = `ifconfig`
       .split("\n")
-      .collect(&:strip)
+      .inject({}) { |h, l|
+        if m = l.match(/^([a-z]+\d):/)
+          h[m[1]] = [ l.strip ]
+        else
+          h[h.keys.last] << l.strip
+        end
+        h }
+    iface, ifconfig = ifconfig
+      .find { |k, v| v.find { |l| l.match(/broadcast/) } }
+
     top = `top -1 -d 1 -p 1`
       .split("\n")
 
@@ -107,13 +117,16 @@ begin
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
       .first
-      .match(/ join ([^ ]+) /)[1] rescue '(no nwid)'
+      .match(/ join ([^ ]+) /)[1] rescue ''
+    nwid = ' ' + nwid if nwid.length > 0
+
     ip = ifconfig
       .select { |l| l.match(/inet \d/) }
       .reject { |l| l.match(/ 127\.0\.0\.1 /) }
       .first
       .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
-    net = "net #{nwid} #{ip}"
+
+    net = "net#{nwid} #{iface} #{ip}"
 
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ') rescue '-'
 
@@ -198,21 +211,4 @@ rescue => err
   print "\n" + err.inspect + " at " + err.backtrace[0]
   sleep
 end
-
-##!/bin/sh
-#
-#while true; do
-#
-#  CPU_SPEED=$(sysctl hw.cpuspeed | cut -d "=" -f 2 | cut -d "." -f 1)
-#  CPU_TEMP=$(sysctl hw.sensors.cpu0.temp0 | cut -d "=" -f 2 | cut -d "." -f 1)
-#  RAM=$(top | grep Memory | awk {'print $3 " / " $6'})
-#  BAT_STATUS=$(sysctl hw.sensors.acpiac0.indicator0 | cut -d "=" -f 2 | cut -d "." -f 1)
-#  BAT=$(apm -l)
-#  DATE=$(date)
-#  NWID=$(ifconfig | grep ieee | awk {'print $3'})
-#  IP=$(ifconfig | grep inet | tail -1 | awk {'print $2'})
-#
-#  echo -en "  $USER | $DATE | CPU: $CPU_SPEED - $CPU_TEMP | $RAM | Bat: $BAT - $BAT_STATUS | $NWID $IP   \r"
-#  sleep 1
-#done
 
