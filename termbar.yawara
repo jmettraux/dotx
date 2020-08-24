@@ -126,7 +126,7 @@ begin
       .first
       .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
 
-    net = "net#{nwid} #{iface} #{ip}"
+    net = "net#{nwid} #{ip} #{iface}"
 
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ') rescue '-'
 
