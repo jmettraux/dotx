@@ -59,3 +59,9 @@ M-M3            Lower current window.
 CMS-M3          Hide current window.
 ```
 
+ST suckless simple terminal bindings (not CWM):
+```
+CS-PgUp  Font Size Up
+CS-PgDn  Font Size Down
+```
+
