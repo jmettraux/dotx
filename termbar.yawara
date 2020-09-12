@@ -113,6 +113,7 @@ begin
       .compact
       .join(' ')
       .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 1\.80GHz|LENOVO | Core/, '')
+      .gsub(/Intel |20R1CTO1WW /, '')
 
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
@@ -133,7 +134,7 @@ begin
     up = top[1].match(/ up (.+)$/)[1] rescue '0 days'
     up = 'up ' + up.gsub(/[,\s]+/, ' ').strip
 
-    mprocs = top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs
+    mprocs = (top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs) rescue '-'
     procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
     procs = sprintf("procs %3d/%1d load %s", procs[0], procs[1], lod)
 
@@ -176,7 +177,16 @@ begin
 
     # output
 
+    zts =
+      { c: 'America/San_Francisco',
+        n: 'America/New_York',
+        z: 'GMT',
+        l: 'Europe/London',
+        f: 'Europe/Paris' }
+          .inject('') { |s, (k, v)| s + "#{k}#{`date -z #{v} +"%H"`.strip}" }
+
     rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
+    rss = zts + ' ' + rss
 
     space = cols - ls.length - rss.length
     space = 10 if space < 1
