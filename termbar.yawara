@@ -186,7 +186,7 @@ begin
           .inject('') { |s, (k, v)| s + "#{k}#{`date -z #{v} +"%H"`.strip}" }
 
     rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
-    rss = zts + ' ' + rss
+    rss = zts + ' | ' + rss
 
     space = cols - ls.length - rss.length
     space = 10 if space < 1
