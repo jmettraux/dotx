@@ -15,6 +15,7 @@ RED = "[0;31m"
 BGN = "[1;32m"
 BYL = "[1;33m"
 BRD = "[1;31m"
+#DDG = "[2;90m"
   #
   # reset 0;0
   # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
@@ -183,12 +184,15 @@ begin
         z: 'GMT',
         l: 'Europe/London',
         f: 'Europe/Paris' }
-          .inject('') { |s, (k, v)| s + "#{k}#{`date -z #{v} +"%H"`.strip}" }
+          .inject('') { |s, (k, v)|
+            h = `date -z #{v} +"%H"`.strip; hi = h.to_i
+            c = hi < 8 || hi >= 18 ? DGY : YEL
+            s + "#{GRN}#{k}#{c}#{h}" }
 
     rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
-    rss = zts + ' | ' + rss
+    rss = zts + GRN + ' | ' + rss
 
-    space = cols - ls.length - rss.length
+    space = cols - ls.length - rss.gsub(/\x1b\[\d+(;\d+)?m/, '').length
     space = 10 if space < 1
     space = ' ' * space
 
