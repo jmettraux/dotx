@@ -167,7 +167,11 @@ begin
     bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
     bat = bat + '  /!\\' if warnbat
 
-    now = Time.now.to_s.gsub(/00$/, '')
+    now = Time.now
+      .to_s
+      .gsub(/00$/, '')
+      #.strftime('%F %T %z|%Z')
+      #.gsub(/00\|/, '|')
 
     #ls = [ host, kernel, machine, net, procs, mem, cpu, fan, up, bat ]
     ls = [ host, kernel, net, procs, mem, cpu, fan, up, bat ]
