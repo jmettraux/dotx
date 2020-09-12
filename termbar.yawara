@@ -179,7 +179,7 @@ begin
     # output
 
     zts =
-      { c: 'America/San_Francisco',
+      { c: 'America/Los_Angeles',
         n: 'America/New_York',
         z: 'GMT',
         l: 'Europe/London',
