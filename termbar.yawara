@@ -39,12 +39,10 @@ print "\e[?25l"
 at_exit { print "\e[?25h" } # reshow cursor on exit, useful when debugging
 
 
+Signal.trap('USR1') do
+  Kernel.exec(File.absolute_path(__FILE__))
+end
 
-#debug = false
-#  #
-#Signal.trap('USR1') do
-#  debug = ! debug
-#end
 
 cols = `tput cols`.to_i
 
@@ -183,15 +181,16 @@ begin
     # output
 
     zts =
-      { c: 'America/Los_Angeles',
-        n: 'America/New_York',
-        z: 'GMT',
-        l: 'Europe/London',
-        f: 'Europe/Paris' }
+      { C: 'America/Los_Angeles',
+        N: 'America/New_York',
+        Z: 'GMT',
+        L: 'Europe/London',
+        F: 'Europe/Paris' }
           .inject('') { |s, (k, v)|
             h = `date -z #{v} +"%H"`.strip; hi = h.to_i
             c = hi < 8 || hi >= 18 ? DGY : YEL
-            s + "#{GRN}#{k}#{c}#{h}" }
+            s + "#{GRN}#{k}#{c}#{h} " }
+          .strip
 
     rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
     rss = zts + GRN + ' | ' + rss
