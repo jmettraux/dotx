@@ -31,6 +31,8 @@ BRD = "[1;31m"
 WARN_PERBAT = 33.0
   # when battery percentage is less than that, flash warning sign
 
+$EXT = nil
+
 print "\e[?25l"
   #
   # hide cursor
@@ -173,7 +175,15 @@ begin
       #.strftime('%F %T %z|%Z')
       #.gsub(/00\|/, '|')
 
-    ls = [ host, kernel, machine, net, procs, mem, cpu, fan, up, bat ]
+    extpath = File.absolute_path(
+      File.join(File.dirname(__FILE__), "termbar.yawara.ext.rb"))
+    if ($EXT.nil? || now.match(/:(00|15|30|45):00 /)) && File.exist?(extpath)
+      Kernel.load(extpath)
+    end
+    ext = $EXT
+
+    ls = [ host, kernel, machine, net, procs, mem, cpu, fan, up, ext, bat ]
+      .compact
       .join(' | ') + ' '
     rs = [ now ]
       .join(' | ')

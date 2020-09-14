@@ -1,3 +1,5 @@
 
 .vim*
 
+termbar.*.ext.rb
+
