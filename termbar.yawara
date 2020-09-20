@@ -107,8 +107,9 @@ begin
     kernel = %w[ ostype osrelease ]
       .collect { |k| kn[k] }
       .compact
-      .join(' ')
+      .join
       .gsub(/OpenBSD/, 'obsd')
+      .gsub('.', '')
 
     machine = %w[ vendor product model machine ]
       .collect { |k| hw[k] }
