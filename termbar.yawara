@@ -108,6 +108,7 @@ begin
       .collect { |k| kn[k] }
       .compact
       .join(' ')
+      .gsub(/OpenBSD/, 'obsd')
 
     machine = %w[ vendor product model machine ]
       .collect { |k| hw[k] }
@@ -128,7 +129,8 @@ begin
       .first
       .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
 
-    net = "net#{nwid} #{ip} #{iface}"
+    #net = "net#{nwid} #{ip} #{iface}"
+    net = "#{nwid} #{ip} #{iface}".strip
 
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ') rescue '-'
 
@@ -137,7 +139,8 @@ begin
 
     mprocs = (top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs) rescue '-'
     procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
-    procs = sprintf("procs %3d/%1d load %s", procs[0], procs[1], lod)
+    #procs = sprintf("procs %3d/%1d load %s", procs[0], procs[1], lod)
+    procs = sprintf("ps %3d/%1d ld %s", procs[0], procs[1], lod)
 
     mem = top[3].match(/Real: ([^\/]+)\/([^\/]+) /) || [ nil, '0', '0' ]
     fmem = top[3].match(/ Free: ([^ ]+) /)[1] rescue '0'
@@ -149,7 +152,8 @@ begin
     cpu = sprintf("cpu s%4s %3.2f%% t%0.2fC", cspeed, 100.0 - idle, temp)
 
     fspeed = hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0'
-    fan = "fan #{fspeed}rpm"
+    #fan = "fan #{fspeed}rpm"
+    fan = "#{fspeed}rpm"
 
     dirbat =
       case hws['acpibat0.raw0']
@@ -206,7 +210,7 @@ begin
     rss = zts + GRN + ' | ' + rss
 
     space = cols - ls.length - rss.gsub(/\x1b\[\d+(;\d+)?m/, '').length
-    space = 10 if space < 1
+    space = 1 if space < 1
     space = ' ' * space
 
     ls = ls.gsub(
