@@ -233,6 +233,7 @@ begin
           # color after the text lengths have been used to position the text...
 
     print "\n" << GRN << ls << space << rss
+    $stdout.flush
 
     sleep 1
   end
