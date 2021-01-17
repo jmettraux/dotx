@@ -240,7 +240,7 @@ begin
 
 rescue => err
 
-  print "\n" + err.inspect + " at " + err.backtrace[0]
+  print "\npid: #{Process.pid} / #{err.inspect} at #{err.backtrace[0]}"
   sleep
 end
 
