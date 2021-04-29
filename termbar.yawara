@@ -93,7 +93,7 @@ begin
         if m = l.match(/^([a-z]+\d):/)
           h[m[1]] = [ l.strip ]
         else
-          h[h.keys.last] << l.strip
+          (h[h.keys.last] ||= []) << l.strip
         end
         h }
     iface, ifconfig = ifconfig
