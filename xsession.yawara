@@ -11,6 +11,7 @@
 #done
 
 xmodmap ~/.x/modmap.yawara
+#setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl
 
 feh --bg-fill /home/jmettraux/wallpapers/cata.jpg
 
