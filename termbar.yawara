@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby26
+#!/usr/local/bin/ruby26 -W0
 
 #
 # termbar.yawara
@@ -33,7 +33,9 @@ WARN_PERBAT = 33.0
 
 $EXT = nil
 
-$LAT = '‾‾‾‾‾‾‾‾‾‾'
+
+#$LAT = '‾‾‾‾‾‾‾‾‾‾'
+$LAT = '‾‾‾‾'
   # this determines the length of the latency bar...
 
 print "\e[?25l"
@@ -71,7 +73,7 @@ end
 #
 def latency
 
-  l = `dig perso.pw @8.8.8.8 +timeout=1`.match(/Query time: (\d+)/) rescue nil
+  l = `dig weaver.skepti.ch @8.8.8.8 +timeout=1`.match(/Query time: (\d+)/) rescue nil
   l ? l[1].to_i : l
   if l
     # ⎺⎻-⎼⎽_
