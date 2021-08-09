@@ -34,8 +34,7 @@ WARN_PERBAT = 33.0
 $EXT = nil
 
 
-#$LAT = '‾‾‾‾‾‾‾‾‾‾'
-$LAT = '‾‾‾‾'
+$LAT = '‾‾‾‾‾‾‾‾‾‾'
   # this determines the length of the latency bar...
 
 print "\e[?25l"
@@ -214,9 +213,10 @@ begin
       lat = ($1 == '04') ? '.' : latency
       $LAT = $LAT[1..-1] + lat
     end
+    lat = net.length > 13 ? $LAT[($LAT.length / 2)..-1] : $LAT
 
     ls = [
-      host, kernel, machine, net, procs, mem, cpu, fan, up, ext, bat, $LAT ]
+      host, kernel, machine, net, procs, mem, cpu, fan, up, ext, bat, lat ]
         .compact
         .join(' | ') + ' '
     rs = [
