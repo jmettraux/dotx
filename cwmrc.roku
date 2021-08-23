@@ -1,0 +1,110 @@
+
+ignore "termbar"
+#ignore "xconsole"
+
+gap 17 0 0 0
+
+moveamount 1
+snapdist 0
+
+sticky yes
+
+#color activeborder blue
+color inactiveborder black
+
+command term "jt -f \"Hack:size=10\""
+
+# key names are taken from /usr/X11R6/include/X11/keysymdef.h
+
+bind-key MS-u "jt -f \"Hack:size=10\" -n jtu -g 80x62+0+17"
+bind-key MS-i "jt -f \"Hack:size=10\" -n jti -g 158x62+1+17"
+bind-key MS-o "jt -f \"Hack:size=10\" -n jto -g 80x62+1274+17"
+bind-key MS-p "jt -f \"Hack:size=10\" -n jtp -g 238x62+0+17"
+bind-key MS-t "jt -f \"Hack:size=10\" -n jtop -g 238x62+0+17 htop -t"
+
+bind-key M-u "xdotool search --classname jtu windowactivate"
+bind-key M-i "xdotool search --classname jti windowactivate"
+bind-key M-o "xdotool search --classname jto windowactivate"
+bind-key M-p "xdotool search --classname jtp windowactivate"
+
+bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 210 90"
+  # activate Chromium then move to its x210, y90
+
+unbind-key CM-Delete
+bind-key M-BackSpace "xlock -mode random"
+
+bind-key M-r "dmenu_run -b -fn \"Hack:size=12\""
+
+bind-key M-x window-close
+bind-key M-semicolon window-rcycle-ingroup
+
+bind-key M-bracketleft "~/bin/vup"
+bind-key M-bracketright "~/bin/vdown"
+
+#bind-key MC-g window-group
+  # this is the default, so to move current window to 0,
+  # do MCg then 0
+
+# Alt-N              show only group N (hide windows of other groups)
+# Alt-Ctl-N          toggle group N (hide/show windows of group N)
+# Alt-Shi-N          move current window to group N
+# Alt-Ctl-g then N   move current window to group N
+
+#bind-key M-0 group-only-0 # group 0 is visible all the time
+bind-key M-1 group-only-1
+bind-key M-2 group-only-2
+bind-key M-3 group-only-3
+bind-key M-4 group-only-4
+bind-key M-5 group-only-5
+bind-key M-6 group-only-6
+bind-key M-7 group-only-7
+bind-key M-8 group-only-8
+bind-key M-9 group-only-9
+
+#bind-key MC-0 group-toggle-0 # group 0 is visible all the time
+bind-key MC-1 group-toggle-1
+bind-key MC-2 group-toggle-2
+bind-key MC-3 group-toggle-3
+bind-key MC-4 group-toggle-4
+bind-key MC-5 group-toggle-5
+bind-key MC-6 group-toggle-6
+bind-key MC-7 group-toggle-7
+bind-key MC-8 group-toggle-8
+bind-key MC-9 group-toggle-9
+
+#bind-key CMS-0 window-movetogroup-0 # no move to 0 :-(
+bind-key CMS-1 window-movetogroup-1
+bind-key CMS-2 window-movetogroup-2
+bind-key CMS-3 window-movetogroup-3
+bind-key CMS-4 window-movetogroup-4
+bind-key CMS-5 window-movetogroup-5
+bind-key CMS-6 window-movetogroup-6
+bind-key CMS-7 window-movetogroup-7
+bind-key CMS-8 window-movetogroup-8
+bind-key CMS-9 window-movetogroup-9
+
+autogroup 0 termbar
+
+bind-key CS-k "xdotool click 4"
+bind-key CS-j "xdotool click 5"
+#bind-mouse M-4 "xdotool key Shift+Page_Up"
+#bind-mouse M-5 "xdotool key Shift+Page_Down"
+
+
+# Trying not to get in the way of Inkscape
+
+unbind-key M-Down
+unbind-key M-Up
+  #
+#MS-Down window-lower
+#MS-Up window-raise
+
+unbind-key M-period
+  # M-question      Spawn “exec program” dialog.
+unbind-key M-question
+  # M-period        Spawn “ssh to” dialog.
+unbind-key M-Right
+  # M-Right         Cycle through active groups.
+unbind-key M-Left
+  # M-Left          Reverse cycle through active groups.
+
