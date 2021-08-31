@@ -15,6 +15,7 @@ RED = "[0;31m"
 BGN = "[1;32m"
 BYL = "[1;33m"
 BRD = "[1;31m"
+WHY = "[1;97m"
 #DDG = "[2;90m"
   #
   # reset 0;0
@@ -124,13 +125,16 @@ begin
     top = `top -1 -d 1 -p 1`
       .split("\n")
 
+    wg = ' ' + `xprop -root 32c '\t$0' _NET_CURRENT_DESKTOP`
+      .split.last
+
     host = kn['hostname']
 
     kernel = %w[ ostype osrelease ]
       .collect { |k| kn[k] }
       .compact
       .join
-      .gsub(/OpenBSD/, 'obsd')
+      .gsub(/OpenBSD/, 'o')
       .gsub('.', '')
 
     machine = %w[ vendor product model machine ]
@@ -219,7 +223,7 @@ begin
     lat = $LAT
 
     ls = [
-      host, kernel, machine, net, procs, mem, cpu, up, ext, lat ]
+      wg, host, kernel, machine, net, procs, mem, cpu, up, ext, lat ]
         .compact
         .join(' | ') + ' '
     rs = [
@@ -248,16 +252,19 @@ begin
     space = ' ' * space
 
     ls = ls.gsub(
-      /( cpu s)(\d+)/) { |m|
+      /\A (\d+) /) {
+        " #{WHY}#{$1}#{GRN} " }
+    ls = ls.gsub(
+      /( cpu s)(\d+)/) {
         $1 + colo($2, nil, 3683) }
     ls = ls.gsub(
-      /(% t)(\d+\.\d+)(C )/) { |m|
+      /(% t)(\d+\.\d+)(C )/) {
         $1 + colo($2, 55, 70, 80, 90, 100) + $3 }
     #ls = ls.gsub(
-    #  /( fan )(\d+)/) { |m|
+    #  /( fan )(\d+)/) {
     #    $1 + colo($2, 2700, 3000, 3700, 4000, 4700) }
     #ls = ls.gsub(
-    #  /( bat\s+)(\d+\.\d+)(% d)/) { |m|
+    #  /( bat\s+)(\d+\.\d+)(% d)/) {
     #    $1 + colo('-' + $2, -49, -39, -29, -19, -9) + $3 }
     ls = ls.gsub(
       / \/!\\/) { |m|
