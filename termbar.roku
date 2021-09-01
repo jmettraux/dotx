@@ -51,6 +51,8 @@ Signal.trap('USR1') do
 end
 
 
+system('tput civis') # hide cursor, show with `tput cnorm`
+
 cols = `tput cols`.to_i - 1
 
 

@@ -45,6 +45,8 @@ at_exit { print "\e[?25h" } # reshow cursor on exit, useful when debugging
 #  debug = ! debug
 #end
 
+system('tput civis') # hide cursor, show with `tput cnorm`
+
 cols = `tput cols`.to_i
 
 
