@@ -150,6 +150,7 @@ begin
       .select { |l| l.match(/ieee80211/) }
       .first
       .match(/ join ([^ ]+) /)[1] rescue ''
+    nwid = 'IPho' if nwid == 'JohnPhone'
     nwid = ' ' + nwid if nwid.length > 0
 
     ip = ifconfig
@@ -219,7 +220,7 @@ begin
       lat = ($1 == '04') ? '.' : latency
       $LAT = $LAT[1..-1] + lat
     end
-    lat = net.length > 13 ? $LAT[($LAT.length / 2)..-1] : $LAT
+    lat = net.length > 13 ? $LAT[-2..-1] : $LAT
 
     ls = [
       wg, host, kernel, machine, net, procs, mem, cpu, fan, up, ext, bat, lat ]
