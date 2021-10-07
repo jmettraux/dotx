@@ -14,9 +14,13 @@ xmodmap ~/.x/modmap.roku
 
 feh --bg-fill /home/jmettraux/wallpapers/automn0.jpg
 
+#st \
+#  -T termbar -c termbar \
+#  -f "Terminus:size=9" -g 320x1+0+0 \
+#  -e ~/.x/termbar.roku &
 st \
   -T termbar -c termbar \
-  -f "Terminus:size=9" -g 320x1+0+0 \
+  -f "Terminus:size=12" -g 320x1+0+0 \
   -e ~/.x/termbar.roku &
 
 #LC_CTYPE=en_US.UTF-8 \
