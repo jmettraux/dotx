@@ -152,6 +152,7 @@ begin
       .match(/ join ([^ ]+) /)[1] rescue ''
     nwid = 'IPho' if nwid == 'JohnPhone'
     nwid = 'P' if nwid == 'Penelope'
+    nwid = 'S' if nwid =~ /^#Skyroam_/
     nwid = ' ' + nwid if nwid.length > 0
 
     ip = ifconfig
