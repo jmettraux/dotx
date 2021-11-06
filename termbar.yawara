@@ -152,6 +152,7 @@ begin
       .match(/ join ([^ ]+) /)[1] rescue ''
     nwid = 'IPho' if nwid == 'JohnPhone'
     nwid = 'P' if nwid == 'Penelope'
+    nwid = 'FI' if nwid == 'ILFIORE'
     nwid = 'S' if nwid =~ /^#Skyroam_/
     nwid = 'C' if nwid =~ /^Salt_[25]GHz_/
     nwid = ' ' + nwid if nwid.length > 0
