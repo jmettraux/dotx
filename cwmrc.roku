@@ -73,15 +73,10 @@ bind-key MC-8 group-toggle-8
 bind-key MC-9 group-toggle-9
 
 #bind-key CMS-0 window-movetogroup-0 # no move to 0 :-(
-bind-key CMS-1 window-movetogroup-1
-bind-key CMS-2 window-movetogroup-2
-bind-key CMS-3 window-movetogroup-3
-bind-key CMS-4 window-movetogroup-4
-bind-key CMS-5 window-movetogroup-5
-bind-key CMS-6 window-movetogroup-6
-bind-key CMS-7 window-movetogroup-7
-bind-key CMS-8 window-movetogroup-8
-bind-key CMS-9 window-movetogroup-9
+#CM-g + 0
+  #
+#bind-key CMS-1 window-movetogroup-1
+#...
 
 autogroup 0 termbar
 
