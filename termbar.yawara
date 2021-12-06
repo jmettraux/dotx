@@ -150,7 +150,7 @@ begin
       .select { |l| l.match(/ieee80211/) }
       .first
       .match(/ join ([^ ]+) /)[1] rescue ''
-    nwid = 'IPho' if nwid == 'JohnPhone'
+    nwid = 'Pho' if nwid == 'JohnPhone'
     nwid = 'P' if nwid == 'Penelope'
     nwid = 'FI' if nwid == 'ILFIORE'
     nwid = 'S' if nwid =~ /^#Skyroam_/
