@@ -151,6 +151,7 @@ begin
       .first
       .match(/ join ([^ ]+) /)[1] rescue ''
     nwid = 'Pho' if nwid == 'JohnPhone'
+    nwid = 'Fo' if nwid == 'Fondcombe'
     nwid = 'P' if nwid == 'Penelope'
     nwid = 'FI' if nwid == 'ILFIORE'
     nwid = 'S' if nwid =~ /^#Skyroam_/
