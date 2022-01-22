@@ -91,8 +91,8 @@ bind-key CS-j "xdotool click 5"
 unbind-key M-Down
 unbind-key M-Up
   #
-MS-Down window-lower
-MS-Up window-raise
+bind-key MS-Down window-lower
+bind-key MS-Up window-raise
 
 unbind-key M-period
   # M-question      Spawn “exec program” dialog.
