@@ -206,7 +206,7 @@ begin
 
     perbat = rembat / maxbat * 100
     warnbat = perbat < WARN_PERBAT && dirbat == 'd'
-    bat = sprintf('bat %2.2f%% %s', perbat, dirbat)
+    bat = sprintf('bat %2.1f%% %s', perbat, dirbat)
     bat = bat + '  /!\\' if warnbat
 
     now = Time.now
