@@ -12,15 +12,15 @@ sticky yes
 #color activeborder blue
 color inactiveborder black
 
-command term "jt -f \"Hack:size=12\""
+command term "jt -f \"Hack:size=10\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-bind-key MS-u "jt -f \"Hack:size=12\" -n jtu -g 55x39+0+16"
-bind-key MS-i "jt -f \"Hack:size=12\" -n jti -g 80x39+558+16"
-bind-key MS-o "jt -f \"Hack:size=12\" -n jto -g 135x39+0+16"
-bind-key MS-p "jt -f \"Hack:size=12\" -n jti -g 135x39+0+16"
-bind-key MS-t "jt -f \"Hack:size=12\" -n jtop -g 135x39+0+16 htop -t"
+bind-key MS-u "jt -f \"Hack:size=9\" -n jtu -g 70x39+0+16"
+bind-key MS-i "jt -f \"Hack:size=9\" -n jti -g 80x39+640+16"
+bind-key MS-o "jt -f \"Hack:size=9\" -n jto -g 135x39+0+16"
+bind-key MS-p "jt -f \"Hack:size=9\" -n jti -g 135x39+0+16"
+bind-key MS-t "jt -f \"Hack:size=9\" -n jtop -g 135x39+0+16 htop -t"
 
 bind-key M-u "xdotool search --classname jtu windowactivate"
 bind-key M-i "xdotool search --classname jti windowactivate"
@@ -33,7 +33,7 @@ bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chr
 unbind-key CM-Delete
 bind-key M-BackSpace "pkill -USR1 xidle"
 
-bind-key M-r "dmenu_run -b -fn \"Hack:size=12\""
+bind-key M-r "dmenu_run -b -fn \"Hack:size=9\""
 
 bind-key M-x window-close
 bind-key M-semicolon window-rcycle-ingroup
