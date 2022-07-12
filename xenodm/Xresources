@@ -7,7 +7,7 @@ xlogin.Login.greeting:
 xlogin.Login.namePrompt:       user
 xlogin.Login.passwdPrompt:     pass
 
-xlogin.Login.height:           180
+xlogin.Login.height:           500
 xlogin.Login.width:            500
 xlogin.Login.y:                320
 xlogin.Login.frameWidth:       0
