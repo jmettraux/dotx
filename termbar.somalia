@@ -130,7 +130,7 @@ begin
     wg = ' ' + `xprop -root 32c '\t$0' _NET_CURRENT_DESKTOP`
       .split.last
 
-    host = kn['hostname']
+    host = kn['hostname'].split('.').first
 
     kernel = %w[ ostype osrelease ]
       .collect { |k| kn[k] }
@@ -143,8 +143,8 @@ begin
       .collect { |k| hw[k] }
       .compact
       .join(' ')
-      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 1\.80GHz|LENOVO | Core/, '')
-      .gsub(/Intel |20R1CTO1WW /, '')
+      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 2\.80GHz|LENOVO | Core/, '')
+      .gsub(/11th Gen |Intel |20XWCTO1WW | amd64/, '')
 
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
@@ -185,7 +185,7 @@ begin
     temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
     cspeed = hw['cpuspeed'] || '0'
     idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
-    cpu = sprintf("cpu s%4s %3.2f%% t%0.2fC", cspeed, 100.0 - idle, temp)
+    cpu = sprintf("cpu s%4s %3.2f%% t%0.0fC", cspeed, 100.0 - idle, temp)
 
     fspeed = hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0'
     #fan = "fan #{fspeed}rpm"
@@ -206,7 +206,8 @@ begin
 
     perbat = rembat / maxbat * 100
     warnbat = perbat < WARN_PERBAT && dirbat == 'd'
-    bat = sprintf('bat %2.1f%% %s', perbat, dirbat)
+    #bat = sprintf('bat %2.1f%% %s', perbat, dirbat)
+    bat = sprintf('bat %2.0f%% %s', perbat, dirbat)
     bat = bat + '  /!\\' if warnbat
 
     now = Time.now
