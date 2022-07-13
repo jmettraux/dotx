@@ -227,7 +227,7 @@ begin
       lat = ($1 == '04') ? '.' : latency
       $LAT = $LAT[1..-1] + lat
     end
-    lat = net.length > 13 ? $LAT[-2..-1] : $LAT
+    lat = net.length > 13 ? $LAT[-7..-1] : $LAT
 
     ls = [
       wg, host, kernel, machine, net, procs, mem, cpu, fan, up, ext, bat, lat ]
