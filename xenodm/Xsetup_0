@@ -4,6 +4,10 @@
 prefix="/usr/X11R6"
 exec_prefix="${prefix}"
 
+#${exec_prefix}/bin/xrandr --output default --dpi 161
+  # John 2022-07-15
+  # https://www.tumfatig.net/2019/customizing-openbsd-xenodm/
+
 #${exec_prefix}/bin/xsetroot -fg \#6f6f6f -bg \#bfbfbf -bitmap ${prefix}/include/X11/bitmaps/root_weave
 #${exec_prefix}/bin/xconsole -geometry 480x130-0-0 -daemon -notify -verbose -fn fixed -exitOnFail
 
