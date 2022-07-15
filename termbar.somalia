@@ -122,7 +122,9 @@ begin
         end
         h }
     iface, ifconfig = ifconfig
-      .find { |k, v| v.find { |l| l.match(/broadcast/) } }
+      .find { |k, v|
+        v.find { |l| l.match(/status: active/) } &&
+        v.find { |l| l.match(/broadcast/) } }
 
     top = `top -1 -d 1 -p 1`
       .split("\n")
