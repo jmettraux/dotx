@@ -14,9 +14,9 @@ keycode 115 = Alt_L
   ! Win key
 keycode 131 = Alt_L
   ! Muhenkan (left of space bar)
-keycode 129 = Alt_R
+!keycode 129 = Alt_R
   ! Henkan (right of space bar)
-keycode 208 = Alt_R
+!keycode 208 = Alt_R
   ! Hiragana-Katana (right of Henkan)
 !keycode 111
   ! PrtSc (right of Alt_R)

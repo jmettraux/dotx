@@ -25,6 +25,8 @@ bind-key MS-o "jt -f \"Hack:size=7\" -n jto -g 80x62+1194+18"
 bind-key MS-p "jt -f \"Hack:size=7\" -n jtp -g 213x62+0+18"
 bind-key MS-t "jt -f \"Hack:size=7\" -n jtop -g 213x62+0+18 htop -t"
 
+#bind-key C-backslash "xterm -fn "Terminus" -font 10x20 -geometry 80x58+0+18 -fg white -bg black"
+
 bind-key M-minus window-snap-up-left
 bind-key M-asciicircum window-snap-up-right
 bind-key M-backslash window-vmaximize

@@ -10,7 +10,7 @@
 #  fi
 #done
 
-xmodmap ~/.x/modmap.yawara
+xmodmap ~/.x/modmap.somalia
 #setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl
 
 feh --bg-fill /home/jmettraux/wallpapers/somalia.jpg
@@ -23,15 +23,8 @@ st -f "Terminus:size=7" -g 240x1+-1+0 -T termbar -c termbar -e ~/.x/termbar.soma
 
 #export GTK_IM_MODULE="ibus"
 #export QT_IM_MODULE="ibus"
-#export XMODIFIERS="@im=ibus"
-#/usr/local/bin/ibus-daemon -d -x -r
-  #
-#export GTK_IM_MODULE="xim"
-#export QT_IM_MODULE="xim"
-#export GTK_IM_MODULE="fcitx"
-#export QT_IM_MODULE="fcitx"
-#export XMODIFIERS="@im=fcitx"
-#fcitx-autostart
+export XMODIFIERS="@im=ibus"
+/usr/local/bin/ibus-daemon -d -x -r
 
 cwm
 
