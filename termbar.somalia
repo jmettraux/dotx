@@ -182,7 +182,8 @@ begin
 
     mem = top[3].match(/Real: ([^\/]+)\/([^\/]+) /) || [ nil, '0', '0' ]
     fmem = top[3].match(/ Free: ([^ ]+) /)[1] rescue '0'
-    mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
+    #mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
+    mem = "mem t#{mem[2]} f#{fmem}"
 
     temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
     cspeed = hw['cpuspeed'] || '0'
