@@ -131,6 +131,11 @@ begin
       .find { |k, v|
         v.find { |l| l.match(/status: active/) } &&
         v.find { |l| l.match(/broadcast/) } }
+    if iface.match?(/^trunk\d+$/)
+      #iface = iface.gsub(/[^tk0-9]/, '')
+      face = ifconfig.find { |v| v.match?(/ port .*active$/) }
+      iface = iface + ':' + face.split(' ').first if face
+    end
 
     top = `top -1 -d 1 -p 1`
       .split("\n")
