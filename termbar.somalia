@@ -130,8 +130,8 @@ begin
     iface, ifconfig = ifconfig
       .find { |k, v|
         v.find { |l| l.match(/status: active/) } &&
-        v.find { |l| l.match(/broadcast/) } }
-    if iface.match?(/^trunk\d+$/)
+        v.find { |l| l.match(/broadcast/) } } rescue nil
+    if iface && iface.match?(/^trunk\d+$/)
       #iface = iface.gsub(/[^tk0-9]/, '')
       face = ifconfig.find { |v| v.match?(/ port .*active$/) }
       iface = iface + ':' + face.split(' ').first if face
@@ -163,12 +163,16 @@ begin
       .select { |l| l.match(/ieee80211/) }
       .first
       .match(/ join ([^ ]+) /)[1] rescue ''
-    nwid = 'Pho' if nwid == 'JohnPhone'
-    nwid = 'Fo' if nwid == 'Fondcombe'
-    nwid = 'P' if nwid == 'Penelope'
-    nwid = 'FI' if nwid == 'ILFIORE'
-    nwid = 'S' if nwid =~ /^#Skyroam_/
-    nwid = 'C' if nwid =~ /^Salt_[25]GHz_/
+    nwid =
+      case nwid
+      when 'JohnPhone' then 'Pho'
+      when 'Fondcombe' then 'Fo'
+      when 'Penelope' then 'Pe'
+      when /^#Skyroam_/ then 'Sky'
+      when /^Salt_[25]GHz_/ then 'C'
+      when '"JUAN' then 'Sng'
+      else nwid
+      end
     nwid = ' ' + nwid if nwid.length > 0
 
     ip = ifconfig
