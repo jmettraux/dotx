@@ -153,7 +153,7 @@ begin
     nwid = 'Pho' if nwid == 'JohnPhone'
     nwid = 'Fo' if nwid == 'Fondcombe'
     nwid = 'P' if nwid == 'Penelope'
-    nwid = 'FI' if nwid == 'ILFIORE'
+    nwid = 'FI' if nwid == 'ILFIORE' # Higashi Kasai quarantine...
     nwid = 'S' if nwid =~ /^#Skyroam_/
     nwid = 'C' if nwid =~ /^Salt_[25]GHz_/
     nwid = ' ' + nwid if nwid.length > 0
