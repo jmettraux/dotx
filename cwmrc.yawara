@@ -23,11 +23,11 @@ command term "st -f \"NotoSansMono:size=12\""
 
 # use `xwininfo" to determine geometry of optimal windows
 
-bind-key MS-u "/home/jmettraux/.x/jterm.yawara 116x52+0+28"
-bind-key MS-i "/home/jmettraux/.x/jterm.yawara 80x52+1514+28"
-bind-key MS-o "/home/jmettraux/.x/jterm.yawara 80x52+1514+28"
-bind-key MS-p "/home/jmettraux/.x/jterm.yawara 196x52+0+28"
-bind-key MS-t "/home/jmettraux/.x/jterm.yawara 196x52+0+28 htop -t"
+bind-key MS-u "/home/jmettraux/.x/jterm \"Hack:size=10\" 116x52+0+28"
+bind-key MS-i "/home/jmettraux/.x/jterm \"Hack:size=10\" 80x52+1514+28"
+bind-key MS-o "/home/jmettraux/.x/jterm \"Hack:size=10\" 80x52+1514+28"
+bind-key MS-p "/home/jmettraux/.x/jterm \"Hack:size=10\" 196x52+0+28"
+bind-key MS-t "/home/jmettraux/.x/jterm \"Hack:size=10\" 196x52+0+28 htop -t"
 
 #bind-key C-backslash "xterm -fn "Terminus" -font 10x20 -geometry 80x58+0+18 -fg white -bg black"
 

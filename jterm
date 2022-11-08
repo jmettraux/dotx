@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#
+# jterm
+#
+# as called from .cwmrc / cwmrc.*
+#
+
+#bind-key MS-t "/home/jmettraux/.x/jterm \"Hack:size=10\" 196x52+0+28 htop -t"
+
+FONT="$1"; shift
+GEOM="$1"; shift
+NAME="st__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
+
+
+/usr/local/bin/st -i -f "$FONT" -t $NAME -g "$GEOM" $@ &
+
+xdotool search --sync --name $NAME key ctrl+alt+shift+f
+
