@@ -4,7 +4,7 @@
 !
 
 remove Lock = Caps_Lock
-keycode 0x42 = Control_L
+keysym Eisu_toggle = Control_L
 add Control = Control_L
 
 keycode 49 = Escape
@@ -12,11 +12,11 @@ keycode 49 = Escape
 
 keycode 115 = Alt_L
   ! Win key
-keycode 131 = Alt_L
+!keycode 131 = Alt_L
   ! Muhenkan (left of space bar)
-keycode 129 = Alt_R
+!keycode 129 = Alt_R
   ! Henkan (right of space bar)
-keycode 208 = Alt_R
+!keycode 208 = Alt_R
   ! Hiragana-Katana (right of Henkan)
 !keycode 111
   ! PrtSc (right of Alt_R)

@@ -1,6 +1,6 @@
 
 !
-! called by .xsession -> .x/xsession.yawara
+! called by .xsession -> .x/xsession.somalia
 !
 
 remove Lock = Caps_Lock

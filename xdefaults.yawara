@@ -1,6 +1,6 @@
 
 !
-! cd ~ && ln -s .x/xdefaults.fugu .Xdefaults
+! cd ~ && ln -s .x/xdefaults.yawara .Xdefaults
 !
 
 !XTerm*loginShell: true

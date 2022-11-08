@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby26 -W0
+#!/usr/local/bin/ruby27 -W0
 
 #
 # termbar.yawara
@@ -89,6 +89,11 @@ def latency
   end
 end
 
+def to_g(s)
+  return s if s.match?(/G$/)
+  return s unless s.match?(/M$/)
+  '%.1fG' % (s.to_f / 1024)
+end
 
 begin
 
@@ -143,8 +148,9 @@ begin
       .collect { |k| hw[k] }
       .compact
       .join(' ')
-      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 1\.80GHz|LENOVO | Core/, '')
-      .gsub(/Intel |20R1CTO1WW /, '')
+      .match(/(i\d-[^\s ]+)/)[1]
+      #.gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 1\.80GHz|LENOVO | Core/, '')
+      #.gsub(/Intel |20R1CTO1WW /, '')
 
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
@@ -169,9 +175,8 @@ begin
 
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ') rescue '-'
 
-    up = top[1].match(/ up (.+)$/)[1] rescue '0 days'
-    #up = 'up ' + up.gsub(/[,\s]+/, ' ').strip
-    up = up.gsub(/[,\s]+/, ' ').strip
+    up = top[1].match(/ up (.+)$/)[1] rescue '0 days 00:00:00'
+    up = 'up ' + up.gsub(/(\d+) days /, '\1d').gsub(/[,\s]+/, ' ').strip.split(':')[0] + 'h'
 
     mprocs = (top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs) rescue '-'
     procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
@@ -180,7 +185,8 @@ begin
 
     mem = top[3].match(/Real: ([^\/]+)\/([^\/]+) /) || [ nil, '0', '0' ]
     fmem = top[3].match(/ Free: ([^ ]+) /)[1] rescue '0'
-    mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
+    #mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
+    mem = "mem t#{to_g(mem[2])} f#{fmem}"
 
     temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
     cspeed = hw['cpuspeed'] || '0'

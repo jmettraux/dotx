@@ -1,11 +1,8 @@
 
-// see /usr/X11R6/include/X11/keysymdef.h
-// and `man cwmrc`
-
 ignore "termbar"
 #ignore "xconsole"
 
-gap 28 0 0 0
+gap 24 0 0 0
 
 moveamount 1
 snapdist 0
@@ -15,28 +12,20 @@ sticky yes
 #color activeborder blue
 color inactiveborder black
 
-command term "st -f \"NotoSansMono:size=12\""
+command term "jt -f \"Hack:size=13\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-# use `xwininfo" to determine geometry of optimal windows
+bind-key MS-u "jt -f \"Hack:size=13\" -n jtu -g 116x52+0+24"
+bind-key MS-i "jt -f \"Hack:size=13\" -n jti -g 80x52+1514+24"
+bind-key MS-o "jt -f \"Hack:size=13\" -n jto -g 80x52+1514+24"
+bind-key MS-p "jt -f \"Hack:size=13\" -n jtp -g 196x52+0+24"
+bind-key MS-t "jt -f \"Hack:size=13\" -n jtop -g 196x52+0+24 htop -t"
 
-bind-key MS-u "st -f \"Hack:size=10\" -n stu -g 116x52+0+28"
-bind-key MS-i "st -f \"Hack:size=10\" -n sti -g 80x52+1514+28"
-bind-key MS-o "st -f \"Hack:size=10\" -n sto -g 80x52+1514+28"
-bind-key MS-p "st -f \"Hack:size=10\" -n stp -g 196x52+0+28"
-bind-key MS-t "st -f \"Hack:size=10\" -n stop -g 196x52+0+28 htop -t"
-
-#bind-key C-backslash "xterm -fn "Terminus" -font 10x20 -geometry 80x58+0+18 -fg white -bg black"
-
-bind-key M-minus window-snap-up-left
-bind-key M-asciicircum window-snap-up-right
-bind-key M-backslash window-vmaximize
-
-bind-key M-u "xdotool search --classname stu windowactivate"
-bind-key M-i "xdotool search --classname sti windowactivate"
-bind-key M-o "xdotool search --classname sto windowactivate"
-bind-key M-p "xdotool search --classname stp windowactivate"
+bind-key M-u "xdotool search --classname jtu windowactivate"
+bind-key M-i "xdotool search --classname jti windowactivate"
+bind-key M-o "xdotool search --classname jto windowactivate"
+bind-key M-p "xdotool search --classname jtp windowactivate"
 
 bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 210 90"
   # activate Chromium then move to its x210, y90
@@ -44,7 +33,7 @@ bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chr
 unbind-key CM-Delete
 bind-key M-BackSpace "pkill -USR1 xidle"
 
-bind-key M-r "dmenu_run -b -fn \"Hack:size=8\""
+bind-key M-r "dmenu_run -b -fn \"Hack:size=13\""
 
 bind-key M-x window-close
 bind-key M-semicolon window-rcycle-ingroup
