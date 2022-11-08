@@ -1,6 +1,8 @@
 
-// see /usr/X11R6/include/X11/keysymdef.h
-// and `man cwmrc`
+#
+# see /usr/X11R6/include/X11/keysymdef.h
+# and `man cwmrc`
+#
 
 ignore "termbar"
 #ignore "xconsole"
@@ -21,11 +23,11 @@ command term "st -f \"NotoSansMono:size=12\""
 
 # use `xwininfo" to determine geometry of optimal windows
 
-bind-key MS-u "st -f \"Hack:size=10\" -n stu -g 116x52+0+28"
-bind-key MS-i "st -f \"Hack:size=10\" -n sti -g 80x52+1514+28"
-bind-key MS-o "st -f \"Hack:size=10\" -n sto -g 80x52+1514+28"
-bind-key MS-p "st -f \"Hack:size=10\" -n stp -g 196x52+0+28"
-bind-key MS-t "st -f \"Hack:size=10\" -n stop -g 196x52+0+28 htop -t"
+bind-key MS-u "/home/jmettraux/.x/jterm.yawara 116x52+0+28"
+bind-key MS-i "/home/jmettraux/.x/jterm.yawara 80x52+1514+28"
+bind-key MS-o "/home/jmettraux/.x/jterm.yawara 80x52+1514+28"
+bind-key MS-p "/home/jmettraux/.x/jterm.yawara 196x52+0+28"
+bind-key MS-t "/home/jmettraux/.x/jterm.yawara 196x52+0+28 htop -t"
 
 #bind-key C-backslash "xterm -fn "Terminus" -font 10x20 -geometry 80x58+0+18 -fg white -bg black"
 
@@ -33,10 +35,10 @@ bind-key M-minus window-snap-up-left
 bind-key M-asciicircum window-snap-up-right
 bind-key M-backslash window-vmaximize
 
-bind-key M-u "xdotool search --classname stu windowactivate"
-bind-key M-i "xdotool search --classname sti windowactivate"
-bind-key M-o "xdotool search --classname sto windowactivate"
-bind-key M-p "xdotool search --classname stp windowactivate"
+#bind-key M-u "xdotool search --classname stu windowactivate"
+#bind-key M-i "xdotool search --classname sti windowactivate"
+#bind-key M-o "xdotool search --classname sto windowactivate"
+#bind-key M-p "xdotool search --classname stp windowactivate"
 
 bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 210 90"
   # activate Chromium then move to its x210, y90
