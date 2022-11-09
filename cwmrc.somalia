@@ -15,15 +15,18 @@ sticky yes
 #color activeborder blue
 color inactiveborder black
 
+unbind-key M-Return
+  # disable "hide active window"
+
 command term "jt -f \"NotoSansMono:size=12\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-bind-key MS-u "jt -f \"Hack:size=7\" -n jtu -g 132x62+0+18"
-bind-key MS-i "jt -f \"Hack:size=7\" -n jti -g 80x62+1194+18"
-bind-key MS-o "jt -f \"Hack:size=7\" -n jto -g 80x62+1194+18"
-bind-key MS-p "jt -f \"Hack:size=7\" -n jtp -g 213x62+0+18"
-bind-key MS-t "jt -f \"Hack:size=7\" -n jtop -g 213x62+0+18 htop -t"
+bind-key MS-u "/home/jmettraux/.x/jterm \"Hack:size=7\" 132x62+0+18"
+bind-key MS-i "/home/jmettraux/.x/jterm \"Hack:size=7\" 80x62+1194+18"
+bind-key MS-o "/home/jmettraux/.x/jterm \"Hack:size=7\" 80x62+1194+18"
+bind-key MS-p "/home/jmettraux/.x/jterm \"Hack:size=7\" 213x62+0+18"
+bind-key MS-t "/home/jmettraux/.x/jterm \"Hack:size=7\" 213x62+0+18 htop -t"
 
 #bind-key C-backslash "xterm -fn "Terminus" -font 10x20 -geometry 80x58+0+18 -fg white -bg black"
 
@@ -31,10 +34,10 @@ bind-key M-minus window-snap-up-left
 bind-key M-asciicircum window-snap-up-right
 bind-key M-backslash window-vmaximize
 
-bind-key M-u "xdotool search --classname jtu windowactivate"
-bind-key M-i "xdotool search --classname jti windowactivate"
-bind-key M-o "xdotool search --classname jto windowactivate"
-bind-key M-p "xdotool search --classname jtp windowactivate"
+#bind-key M-u "xdotool search --classname jtu windowactivate"
+#bind-key M-i "xdotool search --classname jti windowactivate"
+#bind-key M-o "xdotool search --classname jto windowactivate"
+#bind-key M-p "xdotool search --classname jtp windowactivate"
 
 bind-key M-w "xdotool search --name chromium windowactivate %@ search --name chromium mousemove --window %@ 210 90"
   # activate Chromium then move to its x210, y90

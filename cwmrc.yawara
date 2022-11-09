@@ -17,6 +17,9 @@ sticky yes
 #color activeborder blue
 color inactiveborder black
 
+unbind-key M-Return
+  # disable "hide active window"
+
 command term "st -f \"NotoSansMono:size=12\""
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
