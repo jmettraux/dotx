@@ -2,6 +2,8 @@
 !
 ! called by .xsession -> .x/xsession.yawara
 !
+! Thanks xev for the keycodes
+!
 
 remove Lock = Caps_Lock
 !remove Eisu_toggle = Eisu_toggle
@@ -21,8 +23,6 @@ keycode 115 = Alt_L
   ! Hiragana-Katana (right of Henkan)
 !keycode 111
   ! PrtSc (right of Alt_R)
-
-! Thanks xev for the keycodes
 
 remove mod4 = Super_L Super_R
 

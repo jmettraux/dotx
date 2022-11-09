@@ -2,9 +2,11 @@
 !
 ! called by .xsession -> .x/xsession.somalia
 !
+! Thanks xev for the keycodes
+!
 
 remove Lock = Caps_Lock
-keycode 0x42 = Control_L
+keycode 66 = Control_L
 add Control = Control_L
 
 keycode 49 = Escape
@@ -20,8 +22,6 @@ keycode 115 = Alt_L
   ! Hiragana-Katana (right of Henkan)
 !keycode 111
   ! PrtSc (right of Alt_R)
-
-! Thanks xev for the keycodes
 
 remove mod4 = Super_L Super_R
 
