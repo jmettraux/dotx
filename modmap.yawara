@@ -4,7 +4,8 @@
 !
 
 remove Lock = Caps_Lock
-keysym Eisu_toggle = Control_L
+!remove Eisu_toggle = Eisu_toggle
+keycode 66 = Control_L
 add Control = Control_L
 
 keycode 49 = Escape
