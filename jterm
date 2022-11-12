@@ -13,7 +13,14 @@ GEOM="$1"; shift
 NAME="st__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
 
 
-/usr/local/bin/jt -i -f "$FONT" -t $NAME -g "$GEOM" $@ &
+if [ -z "$@" ]; then
+  /usr/local/bin/urxvt \
+    -fn "$FONT" -title "$NAME" -geometry "$GEOM" +sb -bg black -fg white &
+else
+  /usr/local/bin/urxvt \
+    -fn "$FONT" -title "$NAME" -geometry "$GEOM" +sb -bg black -fg white \
+    -e $@ &
+fi
 
 xdotool search --sync --name $NAME key ctrl+alt+shift+f
 
