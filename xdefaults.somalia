@@ -19,11 +19,11 @@
 !XTerm*saveLines: 2048
 !!XTerm*multiClickTime: 250
 
-!URxvt.loginshell: true
-!URxvt.scrollBar: false
-!URxvt.background: black
-!URxvt.foreground: white
-!!URxvt.faceSize: 14
+URxvt.loginshell: true
+URxvt.scrollBar: false
+URxvt.background: black
+URxvt.foreground: white
+URxvt.font: xft:UbuntuMono:size=8
 
 ! https://www.stefaanlippens.net/setting-global-xfig-defaults-for-working-with-lyxlatex.html
 ! https://www.xfig.org/frm_options.html

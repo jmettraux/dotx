@@ -22,11 +22,11 @@ command term "/usr/local/bin/urxvt +sb -fn "xft:UbuntuMono:size=9" -bg black -fg
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-bind-key MS-u "/home/jmettraux/.x/jterm \"xft:UbuntuMono:size=8\" 132x62+0+18"
-bind-key MS-i "/home/jmettraux/.x/jterm \"xft:UbuntuMono:size=8\" 80x62+1194+18"
-bind-key MS-o "/home/jmettraux/.x/jterm \"xft:UbuntuMono:size=8\" 80x62+1194+18"
-bind-key MS-p "/home/jmettraux/.x/jterm \"xft:UbuntuMono:size=8\" 213x62+0+18"
-bind-key MS-t "/home/jmettraux/.x/jterm \"xft:UbuntuMono:size=8\" 213x62+0+18 htop -t"
+bind-key MS-u "/home/jmettraux/.x/jterm 132x62+0+18"
+bind-key MS-i "/home/jmettraux/.x/jterm 80x62+1194+18"
+bind-key MS-o "/home/jmettraux/.x/jterm 80x62+1194+18"
+bind-key MS-p "/home/jmettraux/.x/jterm 213x62+0+18"
+bind-key MS-t "/home/jmettraux/.x/jterm 213x62+0+18 htop -t -s PID"
 
 #bind-key C-backslash "xterm -fn "Terminus" -font 10x20 -geometry 80x58+0+18 -fg white -bg black"
 

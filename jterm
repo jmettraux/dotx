@@ -8,18 +8,14 @@
 
 #bind-key MS-t "/home/jmettraux/.x/jterm \"Hack:size=10\" 196x52+0+28 htop -t"
 
-FONT="$1"; shift
 GEOM="$1"; shift
 NAME="st__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
 
 
 if [ -z "$@" ]; then
-  /usr/local/bin/urxvt \
-    -fn "$FONT" -title "$NAME" -geometry "$GEOM" +sb -bg black -fg white &
+  /usr/local/bin/urxvt -title "$NAME" -geometry "$GEOM" &
 else
-  /usr/local/bin/urxvt \
-    -fn "$FONT" -title "$NAME" -geometry "$GEOM" +sb -bg black -fg white \
-    -e $@ &
+  /usr/local/bin/urxvt -title "$NAME" -geometry "$GEOM" -e $@ &
 fi
 
 xdotool search --sync --name $NAME key ctrl+alt+shift+f
