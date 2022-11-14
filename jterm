@@ -13,9 +13,9 @@ NAME="st__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
 
 
 if [ -z "$@" ]; then
-  /usr/local/bin/urxvt -title "$NAME" -geometry "$GEOM" &
+  /usr/X11R6/bin/xterm -title "$NAME" -geometry "$GEOM" &
 else
-  /usr/local/bin/urxvt -title "$NAME" -geometry "$GEOM" -e $@ &
+  /usr/X11R6/bin/xterm -title "$NAME" -geometry "$GEOM" -e $@ &
 fi
 
 xdotool search --sync --name $NAME key ctrl+alt+shift+f

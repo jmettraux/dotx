@@ -1,6 +1,8 @@
 
-// see /usr/X11R6/include/X11/keysymdef.h
-// and `man cwmrc`
+#
+# see /usr/X11R6/include/X11/keysymdef.h
+# and `man cwmrc`
+#
 
 ignore "termbar"
 #ignore "xconsole"
@@ -18,7 +20,7 @@ color inactiveborder black
 unbind-key M-Return
   # disable "hide active window"
 
-command term "/usr/local/bin/urxvt +sb -fn "xft:UbuntuMono:size=9" -bg black -fg white
+command term "/usr/local/bin/urxvt"
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 

@@ -24,7 +24,7 @@ st -f "Terminus:size=7" -g 240x1+-1+0 -T termbar -c termbar -e ~/.x/termbar.soma
 export GTK_IM_MODULE="xim"
 export QT_IM_MODULE="xim"
 export XMODIFIERS="@im=ibus"
-/usr/local/bin/ibus-daemon -d -x -r
+/usr/local/bin/ibus-daemon --daemonize --xim --replace
 
 cwm
 

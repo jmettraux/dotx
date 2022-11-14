@@ -3,21 +3,22 @@
 ! cd ~ && ln -s .x/xdefaults.somalia .Xdefaults
 !
 
-!XTerm*loginShell: true
-!XTerm*background: black
-!XTerm*foreground: white
-!!XTerm*faceName: Mono
-!!XTerm*faceSize: 14
+XTerm*loginShell: true
+XTerm*background: black
+XTerm*foreground: white
+XTerm*faceName: UbuntuMono
+XTerm*faceSize: 8
+XTerm*scrollBar: false
+XTerm*saveLines: 2048
 !!XTerm*background: black
 !!XTerm*foreground: white
 !!XTerm*pointerColor: red
 !!XTerm*pointerColorBackground: black
 !!XTerm*cursorColor: green
 !!XTerm*internalBorder: 3
-!XTerm*scrollBar: false
 !XTerm*scrollKey: true
-!XTerm*saveLines: 2048
 !!XTerm*multiClickTime: 250
+XTerm.vt100.allowTitleOps: false
 
 URxvt.loginshell: true
 URxvt.scrollBar: false
