@@ -23,7 +23,9 @@ URxvt.loginshell: true
 URxvt.scrollBar: false
 URxvt.background: black
 URxvt.foreground: white
+!URxvt.font: xft:UbuntuMono:size=8,[codeset=JISX0208]xft:Sazanami Mincho
 URxvt.font: xft:UbuntuMono:size=8
+#URxvt.imLocale: ja_JP.UTF-8
 
 ! https://www.stefaanlippens.net/setting-global-xfig-defaults-for-working-with-lyxlatex.html
 ! https://www.xfig.org/frm_options.html
