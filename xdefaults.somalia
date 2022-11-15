@@ -10,6 +10,7 @@ XTerm*faceName: UbuntuMono
 XTerm*faceSize: 8
 XTerm*scrollBar: false
 XTerm*saveLines: 2048
+XTerm*termName: xterm-256color
 !!XTerm*background: black
 !!XTerm*foreground: white
 !!XTerm*pointerColor: red
