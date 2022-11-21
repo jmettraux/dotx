@@ -17,9 +17,11 @@ XTerm*termName: xterm-256color
 !!XTerm*pointerColorBackground: black
 !!XTerm*cursorColor: green
 !!XTerm*internalBorder: 3
-!XTerm*scrollKey: true
 !!XTerm*multiClickTime: 250
 XTerm.vt100.allowTitleOps: false
+XTerm*scrollTtyOutput: false
+XTerm*scrollKey: true
+!!XTerm*scrollTtyKeypress: true
 
 URxvt.loginshell: true
 URxvt.scrollBar: false
