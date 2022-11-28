@@ -10,13 +10,13 @@
 
 GEOM="$1"; shift
 NAME="st__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
-
+FONT="UbuntuMono:size=8"
 
 if [ -z "$@" ]; then
-  /usr/X11R6/bin/xterm -title "$NAME" -geometry "$GEOM" &
+  /usr/local/bin/jt -f "$FONT" -T "$NAME" -g "$GEOM" &
 else
-  /usr/X11R6/bin/xterm -title "$NAME" -geometry "$GEOM" -e $@ &
+  /usr/local/bin/jt -f "$FONT" -T "$NAME" -g "$GEOM" -e $@ &
 fi
 
-xdotool search --sync --name $NAME key ctrl+alt+shift+f
+xdotool search --sync --name "$NAME" key ctrl+alt+shift+f
 
