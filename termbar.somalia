@@ -167,10 +167,13 @@ begin
       case nwid
       when 'JohnPhone' then 'Pho'
       when 'Fondcombe' then 'Fo'
+      when 'GLI_UFFIZI' then 'GUff'
+      when 'GLI_UFFIZI_GUEST' then 'GUfG'
       when 'Penelope' then 'Pe'
       when /^#Skyroam_/ then 'Sky'
       when /^Salt_[25]GHz_/ then 'C'
       when '"JUAN' then 'Sng'
+      #when /^D88ADC7AD45E-[52]G$/ then 'Sof'
       else nwid
       end
     nwid = ' ' + nwid if nwid.length > 0
