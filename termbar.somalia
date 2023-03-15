@@ -231,10 +231,9 @@ begin
     bat = bat + '  /!\\' if warnbat
 
     now = Time.now
-      .to_s
+      .strftime('%F %a %T %z')
       .gsub(/00$/, '')
-      #.strftime('%F %T %z|%Z')
-      #.gsub(/00\|/, '|')
+      .downcase
 
     extpath = File.absolute_path(
       File.join(File.dirname(__FILE__), "termbar.somalia.ext.rb"))
