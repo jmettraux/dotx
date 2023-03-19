@@ -158,6 +158,7 @@ begin
       .join(' ')
       .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 2\.80GHz|LENOVO | Core/, '')
       .gsub(/11th Gen |Intel |20XWCTO1WW | amd64/, '')
+      #.gsub(/-.+/, '') # just display "i7"...
 
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
@@ -190,7 +191,8 @@ begin
     lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ') rescue '-'
 
     up = top[1].match(/ up (.+)$/)[1] rescue '0 days 00:00:00'
-    up = 'up ' + up.gsub(/(\d+) days /, '\1d').gsub(/[,\s]+/, ' ').strip.split(':')[0] + 'h'
+    #up = 'up ' + up.gsub(/(\d+) days /, '\1d').gsub(/[,\s]+/, ' ').strip.split(':')[0] + 'h'
+    up = up.gsub(/(\d+) days /, '\1d').gsub(/[,\s]+/, ' ').strip.split(':')[0] + 'h'
 
     mprocs = (top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs) rescue '-'
     procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
