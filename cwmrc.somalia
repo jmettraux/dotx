@@ -122,8 +122,8 @@ unbind-key M-Right
 unbind-key M-Left
   # M-Left          Reverse cycle through active groups.
 
-unbind-mouse M-M3
+#unbind-mouse M-M3
   # ex... Lower current window.
-unbind-mouse CMS-M3
+#unbind-mouse CMS-M3
   # ex... Hide current window.
 
