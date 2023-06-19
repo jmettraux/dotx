@@ -29,6 +29,7 @@ bind-key MS-i "/home/jmettraux/.x/jterm 80x62+1194+18"
 bind-key MS-o "/home/jmettraux/.x/jterm 80x62+1194+18"
 bind-key MS-p "/home/jmettraux/.x/jterm 213x62+0+18"
 bind-key MS-t "/home/jmettraux/.x/jterm 213x62+0+18 htop -t -s PID"
+bind-key MS-g "/home/jmettraux/.x/jterm 213x62+0+18 glances"
 
 #bind-key C-backslash "xterm -fn "Terminus" -font 10x20 -geometry 80x58+0+18 -fg white -bg black"
 
