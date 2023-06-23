@@ -8,15 +8,37 @@
 
 #bind-key MS-t "/home/jmettraux/.x/jterm \"Hack:size=10\" 196x52+0+28 htop -t"
 
-GEOM="$1"; shift
-NAME="st__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
-FONT="UbuntuMono:size=8"
+WCOLS=$(echo $1 | awk -F'[x+]' '{ print $1 }')
+WLINS=$(echo $1 | awk -F'[x+]' '{ print $2 }')
+WX=$(echo $1 | awk -F'[x+]' '{ print $3 }')
+WY=$(echo $1 | awk -F'[x+]' '{ print $4 }')
+shift
+
+NAME="alacri__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
+#FONT=UbuntuMono
+#FONT_SIZE=8
 
 if [ -z "$@" ]; then
-  /usr/local/bin/jt -f "$FONT" -T "$NAME" -g "$GEOM" &
+  /usr/local/bin/alacritty \
+    -o window.dimensions.columns=$WCOLS -o window.dimensions.lines=$WLINS \
+    -o window.position.x=$WX -o window.position.y=$WY \
+    -o window.class.instance="$NAME" &
+    #-o font.normal.family="$FONT" \
+    #-o font.size=$FONT_SIZE \
 else
-  /usr/local/bin/jt -f "$FONT" -T "$NAME" -g "$GEOM" -e $@ &
+  /usr/local/bin/alacritty \
+    -o window.class.instance="$NAME" \
+    -o window.dimensions.columns=$WCOLS -o window.dimensions.lines=$WLINS \
+    -o window.position.x=$WX -o window.position.y=$WY \
+    -e $@ &
+    #-o font.normal.family="$FONT" \
+    #-o font.size=$FONT_SIZE \
 fi
 
-xdotool search --sync --name "$NAME" key ctrl+alt+shift+f
+#sleep 0.1
+#xdotool search --sync --classname "$NAME" windowsize 800 800 windowmove 0 0
+
+sleep 0.2
+xdotool search --sync --classname "$NAME" key ctrl+alt+shift+f
+xdotool search --sync --classname "$NAME" windowactivate
 

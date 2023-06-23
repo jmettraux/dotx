@@ -1,0 +1,15 @@
+
+window:
+  padding:
+    x: 3
+    y: 3
+colors:
+  primary:
+    background: '0x000000'
+font:
+  normal:
+    #family: Terminus
+    family: UbuntuMono
+    style: Regular
+  size: 8
+
