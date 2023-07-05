@@ -8,11 +8,10 @@
 
 #bind-key MS-t "/home/jmettraux/.x/jterm \"Hack:size=10\" 196x52+0+28 htop -t"
 
-WCOLS=$(echo $1 | awk -F'[x+]' '{ print $1 }')
-WLINS=$(echo $1 | awk -F'[x+]' '{ print $2 }')
-WX=$(echo $1 | awk -F'[x+]' '{ print $3 }')
-WY=$(echo $1 | awk -F'[x+]' '{ print $4 }')
-shift
+WCOLS=$1; shift
+WLINS=$1; shift
+WX=$1; shift
+WY=$1; shift
 
 NAME="alacri__$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 20 | head -n 1)"
 #FONT=UbuntuMono
@@ -38,7 +37,7 @@ fi
 #sleep 0.1
 #xdotool search --sync --classname "$NAME" windowsize 800 800 windowmove 0 0
 
-sleep 0.2
+sleep 0.3
 xdotool search --sync --classname "$NAME" key ctrl+alt+shift+f
 xdotool search --sync --classname "$NAME" windowactivate
 
