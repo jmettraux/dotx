@@ -24,7 +24,7 @@ command term "/usr/local/bin/urxvt"
 
 # key names are taken from /usr/X11R6/include/X11/keysymdef.h
 
-bind-key MS-u "/home/jmettraux/.x/jterm  131 62   -1 18"
+bind-key MS-u "/home/jmettraux/.x/jterm  131 62   -2 18"
 bind-key MS-i "/home/jmettraux/.x/jterm   80 62 1188 18"
 bind-key MS-o "/home/jmettraux/.x/jterm   80 62 1188 18"
 bind-key MS-p "/home/jmettraux/.x/jterm  212 62    0 18"
