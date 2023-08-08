@@ -171,6 +171,7 @@ begin
       when 'GLI_UFFIZI' then 'GUff'
       when 'GLI_UFFIZI_GUEST' then 'GUfG'
       when 'Penelope' then 'Pe'
+      when 'Puits16_3' then 'Pui'
       when /^#Skyroam_/ then 'Sky'
       when /^Salt_[25]GHz_/ then 'C'
       when '"JUAN' then 'Sng'
