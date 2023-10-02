@@ -175,6 +175,7 @@ begin
       when /^#Skyroam_/ then 'Sky'
       when /^Salt_[25]GHz_/ then 'C'
       when '"JUAN' then 'Sng'
+      when /^TP-Link_/ then 'Tpl'
       #when /^D88ADC7AD45E-[52]G$/ then 'Sof'
       else nwid
       end
