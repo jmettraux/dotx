@@ -35,7 +35,9 @@ bind-key MS-g "/home/jmettraux/.x/jterm  212 62    0 18  glances"
 
 bind-key M-minus window-snap-up-left
 bind-key M-asciicircum window-snap-up-right
+#bind-key CM-m window-maximize
 bind-key M-backslash window-vmaximize
+#bind-key M-bracketleft window-hmaximize
 
 #bind-key M-u "xdotool search --classname jtu windowactivate"
 #bind-key M-i "xdotool search --classname jti windowactivate"
