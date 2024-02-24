@@ -3,3 +3,6 @@
 
 termbar.*.ext.rb
 
+.chat.md
+.openai.*
+
