@@ -174,8 +174,9 @@ begin
       when 'Puits16_3' then 'Pui'
       when /^#Skyroam_/ then 'Sky'
       when /^Salt_[25]GHz_/ then 'C'
-      when '"JUAN' then 'Sng'
       when /^TP-Link_/ then 'Tpl'
+      when /^SINGTEL-(.+)/ then "st-#{$1}"
+      #when '"JUAN' then 'Sng'
       #when /^D88ADC7AD45E-[52]G$/ then 'Sof'
       else nwid
       end
