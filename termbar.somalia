@@ -254,10 +254,10 @@ begin
     end
     lat = net.length > 12 ? $LAT[-6..-1] : $LAT
 
-    ls = [
-      wg, host, kernel, machine, net, procs, mem, cpu, fan, up, ext, bat, lat ]
-        .compact
-        .join(' | ') + ' '
+    ls =
+      [ wg, [ host, kernel, machine ].join(' '),
+        net, procs, mem, cpu, fan, up, ext, bat, lat ]
+          .compact.join(' | ') + ' '
     rs = [
       now ]
         .join(' | ')
