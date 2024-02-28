@@ -75,7 +75,8 @@ end
 #
 def latency
 
-  l = `dig weaver.skepti.ch @8.8.8.8 +timeout=1`.match(/Query time: (\d+)/) rescue nil
+  l = `/usr/bin/dig weaver.skepti.ch @8.8.8.8 +timeout=1` \
+    .match(/Query time: (\d+)/) rescue nil
   l ? l[1].to_i : l
   if l
     # ⎺⎻-⎼⎽_
@@ -83,7 +84,6 @@ def latency
     l <  60 ? '⎽' :
     l < 120 ? '⎼' :
     l < 160 ? '⎻' :
-              '⎺'
   else
     'N'
   end
@@ -254,8 +254,13 @@ begin
     end
     lat = net.length > 12 ? $LAT[-6..-1] : $LAT
 
+    snd = `/usr/bin/sndioctl`
+    vol = snd.match(/output\.level=([0-9.]+)/)[1].to_f
+    mte = snd.match(/output\.mute=([01])/)[1].to_i
+    vol = mte == 1 ? 'x' : '_⎽⎼⎻⎺'[(vol * 5).floor]
+
     ls =
-      [ wg, [ host, kernel, machine ].join(' '),
+      [ wg + ' ' + vol + ' ' + [ host, kernel, machine ].join(' '),
         net, procs, mem, cpu, fan, up, ext, bat, lat ]
           .compact.join(' | ') + ' '
     rs = [
