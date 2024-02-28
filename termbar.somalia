@@ -253,7 +253,8 @@ begin
       lat = ($1 == '04') ? '.' : latency
       $LAT = $LAT[1..-1] + lat
     end
-    lat = net.length > 12 ? $LAT[-6..-1] : $LAT
+    #lat = net.length > 12 ? $LAT[-6..-1] : $LAT
+    lat = $LAT[-5..-1]
 
     snd = `/usr/bin/sndioctl`
     vol = snd.match(/output\.level=([0-9.]+)/)[1].to_f
