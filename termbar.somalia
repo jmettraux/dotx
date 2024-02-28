@@ -84,6 +84,7 @@ def latency
     l <  60 ? '⎽' :
     l < 120 ? '⎼' :
     l < 160 ? '⎻' :
+              '⎺'
   else
     'N'
   end
