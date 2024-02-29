@@ -193,7 +193,10 @@ begin
     #net = "net#{nwid} #{ip} #{iface}"
     net = "#{nwid} #{ip} #{iface}".strip
 
-    lod = top[0].split(/\s+/)[2, 3].join(' ').gsub(/,\s+/, ' ') rescue '-'
+    lod = sprintf(
+      '%1.1f %1.1f %1.1f',
+      *top[0].split(/\s+/)[2, 3].map(&:to_f)
+        ) rescue '- - -'
 
     up = top[1].match(/ up (.+)$/)[1] rescue '0 days 00:00:00'
     #up = 'up ' + up.gsub(/(\d+) days /, '\1d').gsub(/[,\s]+/, ' ').strip.split(':')[0] + 'h'
