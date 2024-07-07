@@ -260,9 +260,10 @@ begin
     lat = $LAT[-5..-1]
 
     snd = `/usr/bin/sndioctl`
-    vol = snd.match(/output\.level=([0-9.]+)/)[1].to_f rescue 0.0
+    vol = (snd.match(/output\.level=([0-9.]+)/)[1].to_f rescue nil) || 0.0
     mte = snd.match(/output\.mute=([01])/)[1].to_i rescue 0
-    vol = mte == 1 ? 'x' : '_⎽⎼⎻⎺'[(vol * 5).floor]
+    #vol = mte == 1 ? 'x' : ('_⎽⎼⎻⎺'[(vol.to_i * 5).floor] || '?')
+    vol = (mte == 1) ? '🔈 X' : '🔈 ' + (vol * 10).to_i.to_s
 
     ls =
       [ wg + ' ' + vol + ' ' + [ host, kernel, machine ].join(' '),
