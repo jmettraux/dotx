@@ -30,7 +30,7 @@ MS-Tab          Reverse cycle through currently visible windows.
 CM-x            Close current window.
 CM-[n]          Toggle visibility of group n, where n is 1-9.
 CM-a            Toggle visibility of all groups.
-CM-g            Toggle group membership of current window.
+CM-g            Toggle group membership of current window. (g not G)
 M-Right         Cycle through active groups.
 M-Left          Reverse cycle through active groups.
 CMS-f           Toggle freezing geometry of current window.
