@@ -160,7 +160,7 @@ begin
     #  .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 2\.80GHz|LENOVO | Core/, '')
     #  .gsub(/11th Gen |Intel |20XWCTO1WW | amd64/, '')
     #  #.gsub(/-.+/, '') # just display "i7"...
-    machine = 'R7p 8840U'
+    machine = 'Ry7p 8840U'
 
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
@@ -213,7 +213,8 @@ begin
     #mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
     mem = "mem t#{to_g(mem[2])} f#{fmem}"
 
-    temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
+    #temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
+    temp = (hws['acpithinkpad0.temp0'].split(' ')[0] rescue '0').to_f
     cspeed = hw['cpuspeed'] || '0'
     idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
     #cpu = sprintf("cpu s%4s %3.2f%% t%0.0fC", cspeed, 100.0 - idle, temp)
