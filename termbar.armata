@@ -153,13 +153,14 @@ begin
       .gsub(/OpenBSD/, 'o')
       .gsub('.', '')
 
-    machine = %w[ vendor product model machine ]
-      .collect { |k| hw[k] }
-      .compact
-      .join(' ')
-      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 2\.80GHz|LENOVO | Core/, '')
-      .gsub(/11th Gen |Intel |20XWCTO1WW | amd64/, '')
-      #.gsub(/-.+/, '') # just display "i7"...
+    #machine = %w[ vendor product model machine ]
+    #  .collect { |k| hw[k] }
+    #  .compact
+    #  .join(' ')
+    #  .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 2\.80GHz|LENOVO | Core/, '')
+    #  .gsub(/11th Gen |Intel |20XWCTO1WW | amd64/, '')
+    #  #.gsub(/-.+/, '') # just display "i7"...
+    machine = 'R7p 8840U'
 
     nwid = ifconfig
       .select { |l| l.match(/ieee80211/) }
