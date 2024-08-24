@@ -1,0 +1,332 @@
+#!/usr/local/bin/ruby33 -W0
+
+#
+# termbar.armata
+#
+# vim set ft=ruby:
+#
+
+require 'pp'
+
+DGY = "[0;90m"
+GRN = "[0;32m"
+YEL = "[0;33m"
+RED = "[0;31m"
+BGN = "[1;32m"
+BYL = "[1;33m"
+BRD = "[1;31m"
+WHY = "[1;97m"
+#DDG = "[2;90m"
+  #
+  # reset 0;0
+  # bright 1 dim 2 underlined 4 blink 5 reverse 7 hidden 8 default 39
+  # black 30 red 31 green 32 yellow 33 blue 34 magenta 35 cyan 36
+  # light_gray 37 dark_gray 90 light_red 91 light_green 92
+  # light_yellow 93 light_blue 94 light_magenta 95 light_cyan 96 white 97
+  # bg_default 49 bg_black 40 bg_red 41 bg_green 42 bg_yellow 43 bg_blue 44
+  # bg_magenta 45 bg_cyan 46 bg_light_gray 47 bg_dark_gray 100
+  # bg_light_red 101 bg_light_green 102 bg_light_yellow 103
+  # bg_light_blue 104 bg_light_magenta 105 bg_light_cyan 106
+  # bg_white 107
+
+WARN_PERBAT = 33.0
+  # when battery percentage is less than that, flash warning sign
+
+$EXT = nil
+
+
+$LAT = '‾‾‾‾‾‾‾‾‾‾'
+  # this determines the length of the latency bar...
+
+print "\e[?25l"
+  #
+  # hide cursor
+  # https://en.wikipedia.org/wiki/ANSI_escape_code#Terminal_output_sequences
+  #
+at_exit { print "\e[?25h" } # reshow cursor on exit, useful when debugging
+
+
+Signal.trap('USR1') do
+  Kernel.exec(File.absolute_path(__FILE__))
+end
+
+
+system('tput civis') # hide cursor, show with `tput cnorm`
+
+cols = `tput cols`.to_i
+
+
+def colo(value, th_bgn, th_yel=nil, th_byl=nil, th_red=nil, th_brd=nil)
+
+  v = value.to_i
+  value = value[1..-1] if value[0, 1] == '-'
+
+  c = GRN
+  c = BGN if th_bgn && v > th_bgn
+  c = YEL if th_yel && v > th_yel
+  c = BYL if th_byl && v > th_byl
+  c = RED if th_red && v > th_red
+  c = BRD if th_brd && v > th_brd
+
+  c + value + GRN
+end
+
+# https://dataswamp.org/~solene/2021-07-19-simple-scripts.html
+#
+def latency
+
+  l = `/usr/bin/dig weaver.skepti.ch @8.8.8.8 +timeout=1` \
+    .match(/Query time: (\d+)/) rescue nil
+  l ? l[1].to_i : l
+  if l
+    # ⎺⎻-⎼⎽_
+    l = l[1].to_i
+    l <  60 ? '⎽' :
+    l < 120 ? '⎼' :
+    l < 160 ? '⎻' :
+              '⎺'
+  else
+    'N'
+  end
+end
+
+def to_g(s)
+  return s if s.match?(/G$/)
+  return s unless s.match?(/M$/)
+  '%.1fG' % (s.to_f / 1024)
+end
+
+
+begin
+
+  mprocs = [ nil, '0', '0' ]
+
+  loop do
+
+    # gather info
+
+    sc = `sysctl hw kern`
+      .split("\n")
+      .inject({}) { |h, l|
+        k, v = l.split('=');# h[k.split('.', 2).last] = v; h }
+        if v
+          k0, k1 = k.split('.', 2)
+          (h[k0] ||= {})[k1] = v
+        end
+        h }
+    hw, kn = sc['hw'], sc['kern']
+
+    hws = hw
+      .inject({}) { |h, (k, v)| h[k[8..-1]] = v if k.match(/\Asensors\./); h }
+
+    ifconfig = `ifconfig`
+      .split("\n")
+      .inject({}) { |h, l|
+        if m = l.match(/^([a-z]+\d):/)
+          h[m[1]] = [ l.strip ]
+        else
+          (h[h.keys.last] ||= []) << l.strip
+        end
+        h }
+    iface, ifconfig = ifconfig
+      .find { |k, v|
+        v.find { |l| l.match(/status: active/) } &&
+        v.find { |l| l.match(/broadcast/) } } rescue nil
+    if iface && iface.match?(/^trunk\d+$/)
+      #iface = iface.gsub(/[^tk0-9]/, '')
+      face = ifconfig.find { |v| v.match?(/ port .*active$/) }
+      iface = iface + ':' + face.split(' ').first if face
+    end
+
+    top = `top -1 -d 1 -p 1`
+      .split("\n")
+
+    wg = ' ' + `xprop -root 32c '\t$0' _NET_CURRENT_DESKTOP`
+      .split.last
+
+    host = kn['hostname'].split('.').first
+
+    kernel = %w[ ostype osrelease ]
+      .collect { |k| kn[k] }
+      .compact
+      .join
+      .gsub(/OpenBSD/, 'o')
+      .gsub('.', '')
+
+    machine = %w[ vendor product model machine ]
+      .collect { |k| hw[k] }
+      .compact
+      .join(' ')
+      .gsub(/ Inc\.|\(R\)|\(TM\)| CPU| @ 2\.80GHz|LENOVO | Core/, '')
+      .gsub(/11th Gen |Intel |20XWCTO1WW | amd64/, '')
+      #.gsub(/-.+/, '') # just display "i7"...
+
+    nwid = ifconfig
+      .select { |l| l.match(/ieee80211/) }
+      .first
+      .match(/ join ([^ ]+) /)[1] rescue ''
+    nwid =
+      case nwid
+      when 'JohnPhone' then 'Pho'
+      when 'Fondcombe' then 'Fo'
+      when 'GLI_UFFIZI' then 'GUff'
+      when 'GLI_UFFIZI_GUEST' then 'GUfG'
+      when 'Penelope' then 'Pe'
+      when 'Puits16_3' then 'Pui'
+      when /^#Skyroam_/ then 'Sky'
+      when /^Salt_[25]GHz_/ then 'C'
+      when /^TP-Link_/ then 'Tpl'
+      when /^SINGTEL-(.+)/ then "st-#{$1}"
+      when /^SIMOMIFI_([^_]+)_([^_]+)/ then "smo#{$2.downcase}"
+      #when '"JUAN' then 'Sng'
+      #when /^D88ADC7AD45E-[52]G$/ then 'Sof'
+      else nwid
+      end
+    nwid = ' ' + nwid if nwid.length > 0
+
+    ip = ifconfig
+      .select { |l| l.match(/inet \d/) }
+      .reject { |l| l.match(/ 127\.0\.0\.1 /) }
+      .first
+      .match(/inet ([^ ]+) /)[1] rescue '(no ip)'
+
+    #net = "net#{nwid} #{ip} #{iface}"
+    net = "#{nwid} #{ip} #{iface}".strip
+
+    lod = sprintf(
+      '%1.1f %1.1f %1.1f',
+      *top[0].split(/\s+/)[2, 3].map(&:to_f)
+        ) rescue '- - -'
+
+    up = top[1].match(/ up (.+)$/)[1] rescue '0 days 00:00:00'
+    #up = 'up ' + up.gsub(/(\d+) days /, '\1d').gsub(/[,\s]+/, ' ').strip.split(':')[0] + 'h'
+    up = up.gsub(/(\d+) days /, '\1d').gsub(/[,\s]+/, ' ').strip.split(':')[0] + 'h'
+
+    mprocs = (top[1].match(/^(\d+) processes: (\d+) idle/) || mprocs) rescue '-'
+    procs = [ mprocs[1].to_i, mprocs[1].to_i - mprocs[2].to_i ]
+    #procs = sprintf("procs %3d/%1d load %s", procs[0], procs[1], lod)
+    procs = sprintf("ps %3d/%1d ld %s", procs[0], procs[1], lod)
+
+    mem = top[3].match(/Real: ([^\/]+)\/([^\/]+) /) || [ nil, '0', '0' ]
+    fmem = top[3].match(/ Free: ([^ ]+) /)[1] rescue '0'
+    #mem = "mem a#{mem[1]} t#{mem[2]} f#{fmem}"
+    mem = "mem t#{to_g(mem[2])} f#{fmem}"
+
+    temp = (hws['cpu0.temp0'].split(' ')[0] rescue '0').to_f
+    cspeed = hw['cpuspeed'] || '0'
+    idle = (top[2].match(/([^ ]+)% idle$/)[1].to_f) rescue 100.0
+    #cpu = sprintf("cpu s%4s %3.2f%% t%0.0fC", cspeed, 100.0 - idle, temp)
+    #cpu = sprintf("cpu s%4s %3.2f%% %0.0f🌡", cspeed, 100.0 - idle, temp)
+    cpu = sprintf("cpu s%4s %3.2f%% %0.0f°", cspeed, 100.0 - idle, temp)
+
+    fspeed = hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0'
+    #fan = "fan #{fspeed}rpm"
+    fan = "#{fspeed}rpm"
+
+    dirbat =
+      case hws['acpibat0.raw0']
+      when /discharging/ then 'd'
+      when /idle/ then 'i'
+      else 'c'
+      end
+    maxbat = [
+      hws['acpibat0.watthour0'].split(' Wh').first.to_f, # last full capa
+      hws['acpibat0.watthour4'].split(' Wh').first.to_f # design capa
+        ].min
+    rembat =
+      hws['acpibat0.watthour3'].split(' Wh').first.to_f
+
+    perbat = rembat / maxbat * 100
+    warnbat = perbat < WARN_PERBAT && dirbat == 'd'
+    #bat = sprintf('bat %2.1f%% %s', perbat, dirbat)
+    #bat = sprintf('bat %2.0f%% %s', perbat, dirbat)
+    bat = sprintf('🔋  %2.0f%% %s', perbat, dirbat)
+    bat = bat + '  /!\\' if warnbat
+
+    now = Time.now
+      .strftime('%F %a %T %z')
+      .gsub(/00$/, '')
+      .downcase
+
+    extpath = File.absolute_path(
+      File.join(File.dirname(__FILE__), "termbar.somalia.ext.rb"))
+    if ($EXT.nil? || now.match(/:(00|15|30|45):00 /)) && File.exist?(extpath)
+      Kernel.load(extpath)
+    end
+    ext = $EXT
+
+    if now.match(/:(\d[48]) /)
+      lat = ($1 == '04') ? '.' : latency
+      $LAT = $LAT[1..-1] + lat
+    end
+    #lat = net.length > 12 ? $LAT[-6..-1] : $LAT
+    lat = $LAT[-5..-1]
+
+    snd = `/usr/bin/sndioctl`
+    vol = (snd.match(/output\.level=([0-9.]+)/)[1].to_f rescue nil) || 0.0
+    mte = snd.match(/output\.mute=([01])/)[1].to_i rescue 0
+    #vol = mte == 1 ? 'x' : ('_⎽⎼⎻⎺'[(vol.to_i * 5).floor] || '?')
+    vol = (mte == 1) ? '🔈 X' : '🔈 ' + (vol * 10).to_i.to_s
+
+    ls =
+      [ wg + ' ' + vol + ' ' + [ host, kernel, machine ].join(' '),
+        net, procs, mem, cpu, fan, up, ext, bat, lat ]
+          .compact.join(' | ') + ' '
+    rs = [
+      now ]
+        .join(' | ')
+
+    # output
+
+    zts =
+      { C: 'America/Los_Angeles',
+        N: 'America/New_York',
+        Z: 'GMT',
+        L: 'Europe/London',
+        F: 'Europe/Paris' }
+          .inject('') { |s, (k, v)|
+            h = `date -z #{v} +"%H"`.strip; hi = h.to_i
+            c = hi < 8 || hi >= 18 ? DGY : YEL
+            s + "#{GRN}#{k}#{c}#{h} " }
+          .strip
+
+    rss = ((Time.now.to_i % 2) == 0) ? rs.gsub(/:/, ' ') : rs
+    rss = zts + GRN + ' | ' + rss
+
+    space = cols - ls.length - rss.gsub(/\x1b\[\d+(;\d+)?m/, '').length
+    space = 1 if space < 1
+    space = ' ' * space
+
+    ls = ls.gsub(
+      /\A (\d+) /) {
+        " #{WHY}#{$1}#{GRN} " }
+    ls = ls.gsub(
+      /( cpu s)(\d+)/) {
+        $1 + colo($2, nil, 2300) }
+    ls = ls.gsub(
+      /(% t)(\d+\.\d+)(C )/) {
+        $1 + colo($2, 55, 70, 80, 90, 100) + $3 }
+    ls = ls.gsub(
+      /( fan )(\d+)/) {
+        $1 + colo($2, 2700, 3000, 3700, 4000, 4700) }
+    ls = ls.gsub(
+      /( bat\s+)(\d+\.\d+)(% d)/) {
+        $1 + colo('-' + $2, -49, -39, -29, -19, -9) + $3 }
+    ls = ls.gsub(
+      / \/!\\/) { |m|
+        ((Time.now.to_i % 2 == 0) ? BRD : RED) + m + GRN }
+          #
+          # color after the text lengths have been used to position the text...
+
+    print "\n" << GRN << ls << space << rss
+    $stdout.flush
+
+    sleep 1
+  end
+
+rescue => err
+
+  print "\npid: #{Process.pid} / #{err.inspect} at #{err.backtrace[0]}"
+  sleep
+end
+

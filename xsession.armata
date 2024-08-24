@@ -1,7 +1,7 @@
 
 #
 # cd ~
-# ln -s .x/xsession.somalia .xsession
+# ln -s .x/xsession.armata .xsession
 #
 
 #for m in `ls /usr/local/lib/X11/fonts/`; do
@@ -10,14 +10,14 @@
 #  fi
 #done
 
-xmodmap ~/.x/modmap.somalia
+xmodmap ~/.x/modmap.armata
 #setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl
 
-feh --bg-fill /home/jmettraux/wallpapers/somalia.jpg
+feh --bg-fill /home/jmettraux/wallpapers/armata.jpg
 
 xidle -program "/usr/X11R6/bin/xlock -mode random" -timeout 540 &
 
-st -f "Terminus:size=7" -g 240x1+-1+0 -T termbar -c termbar -e ~/.x/termbar.somalia &
+st -f "Terminus:size=7" -g 240x1+-1+0 -T termbar -c termbar -e ~/.x/termbar.armata &
 
 #LC_CTYPE=en_US.UTF-8 jt -f "Hack:size=16" -g 80x54+1514+24 -c term0 -n term0 &
 
