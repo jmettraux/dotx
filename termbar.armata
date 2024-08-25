@@ -251,7 +251,7 @@ begin
       .downcase
 
     extpath = File.absolute_path(
-      File.join(File.dirname(__FILE__), "termbar.somalia.ext.rb"))
+      File.join(File.dirname(__FILE__), "termbar.#{host}.ext.rb"))
     if ($EXT.nil? || now.match(/:(00|15|30|45):00 /)) && File.exist?(extpath)
       Kernel.load(extpath)
     end
