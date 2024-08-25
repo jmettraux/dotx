@@ -13,7 +13,7 @@
 xmodmap ~/.x/modmap.armata
 #setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl
 
-feh --bg-fill /home/jmettraux/wallpapers/armata.jpg
+feh --bg-fill --randomize --no--fehbg /home/jmettraux/wallpapers/
 
 xidle -program "/usr/X11R6/bin/xlock -mode random" -timeout 540 &
 
