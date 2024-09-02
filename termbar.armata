@@ -245,6 +245,12 @@ begin
     bat = sprintf('🔋  %2.0f%% %s', perbat, dirbat)
     bat = bat + '  /!\\' if warnbat
 
+    File.open(File.join(Dir.home, '.xlocktext'), 'wb') do |f|
+      f.write('Si Vis Pacem Para Bellum - ')
+      f.write(net); f.write(' - ')
+      f.printf('bat %2.0f%% %s', perbat, dirbat)
+    end
+
     now = Time.now
       .strftime('%F %a %T %z')
       .gsub(/00$/, '')
