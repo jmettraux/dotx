@@ -13,7 +13,7 @@
 xmodmap ~/.x/modmap.armata
 #setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl
 
-feh --bg-fill --randomize --no--fehbg /home/jmettraux/wallpapers/
+feh --bg-fill --randomize --no-fehbg /home/jmettraux/wallpapers/
 
 xidle -program "/usr/X11R6/bin/xlock -mode random" -timeout 540 &
 
@@ -25,6 +25,11 @@ st -f "Terminus:size=7" -g 240x1+-1+0 -T termbar -c termbar -e ~/.x/termbar.arma
 #export QT_IM_MODULE="xim"
 #export XMODIFIERS="@im=ibus"
 #/usr/local/bin/ibus-daemon --daemonize --xim --replace
+  #
+#export XMODIFIERS=@im=fcitx
+#export GTK_IM_MODULE=fcitx
+#export QT_IM_MODULE=fcitx
+#/usr/local/bin/fcitx5 &
 
 cwm
 
