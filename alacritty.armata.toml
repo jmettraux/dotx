@@ -1,0 +1,51 @@
+
+#
+# cd ~/.config/alacritty/ && \
+#   ln -s /home/jmettraux/.x/alacritty.armata.toml alacritty.toml
+#
+
+[colors.bright]
+black = "0x696969"
+blue = "0x007FFF"
+cyan = "0x00CCCC"
+green = "0x03C03C"
+magenta = "0xFF1493"
+red = "0xFF2400"
+white = "0xFFFAFA"
+yellow = "0xFDFF00"
+
+[colors.dim]
+black = "#45475A"
+blue = "#89B4FA"
+cyan = "#94E2D5"
+green = "#A6E3A1"
+magenta = "#F5C2E7"
+red = "#F38BA8"
+white = "#BAC2DE"
+yellow = "#F9E2AF"
+
+[colors.normal]
+black = "0x10100E"
+blue = "0x0087BD"
+cyan = "0x20B2AA"
+green = "0x009F6B"
+magenta = "0x9A4EAE"
+red = "0xC40233"
+white = "0xC6C6C4"
+yellow = "0xFFD700"
+
+[colors.primary]
+background = "0x000000"
+foreground = "0xC6C6C4"
+
+[font]
+size = 8
+
+[font.normal]
+family = "UbuntuMono"
+style = "Regular"
+
+[window.padding]
+x = 3
+y = 1
+
