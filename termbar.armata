@@ -223,7 +223,8 @@ begin
 
     fspeed = hws['acpithinkpad0.fan0'].split(/\s+/)[0] rescue '0'
     #fan = "fan #{fspeed}rpm"
-    fan = "#{fspeed}rpm"
+    #fan = "#{fspeed}rpm"
+    fan = sprintf("%4drpm", fspeed.to_i)
 
     dirbat =
       case hws['acpibat0.raw0']
