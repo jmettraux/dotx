@@ -5,4 +5,6 @@ termbar.*.ext.rb
 
 .chat.md
 .openai.*
+.deep.md
+.deepseek.*
 
