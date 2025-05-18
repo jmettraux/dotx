@@ -49,3 +49,10 @@ style = "Regular"
 x = 3
 y = 1
 
+[bell]
+#visual = true
+duration = 100
+command = { program = '/usr/bin/aucat',  args= [ "-i", "/home/jmettraux/.fish/groups/beep.wav" ] }
+animation = "EaseOutExpo"
+color = '#ff0000'
+
