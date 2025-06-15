@@ -170,8 +170,9 @@ begin
       case nwid
       when 'JohnPhone' then 'Pho'
       when 'Fondcombe' then 'Fo'
-      when 'GLI_UFFIZI' then 'GUff'
-      when 'GLI_UFFIZI_GUEST' then 'GUfG'
+      #when 'GLI_UFFIZI' then 'GUff'
+      #when 'GLI_UFFIZI_GUEST' then 'GUfG'
+      when 'TheBoardRoom' then 'tBR'
       when 'Penelope' then 'Pe'
       when 'Puits16_3' then 'Pui'
       when /^#Skyroam_/ then 'Sky'
