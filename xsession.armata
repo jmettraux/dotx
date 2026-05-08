@@ -10,6 +10,17 @@
 #  fi
 #done
 
+  # - **delay** = milliseconds before key repeat starts (e.g., 500)
+  # - **rate** = repetitions per second (e.g., 30)
+  #
+  # | Setting    | Slow     | Fast    |
+  # |------------|----------|---------|
+  # | Delay (ms) | 500-1000 | 200-300 |
+  # | Rate       | 10-20    | 40-60   |
+  #
+xset r rate 245 42
+#xset r rate 280 49
+
 xmodmap ~/.x/modmap.armata
 #setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl
 
