@@ -182,6 +182,7 @@ begin
       when /^SIMOMIFI_([^_]+)_([^_]+)/ then "smo#{$2.downcase}"
       #when '"JUAN' then 'Sng'
       #when /^D88ADC7AD45E-[52]G$/ then 'Sof'
+      #when /^C48E8/ then 'Nagi'
       else nwid
       end
     nwid = ' ' + nwid if nwid.length > 0
