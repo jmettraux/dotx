@@ -58,6 +58,11 @@ bind-key M-r "dmenu_run -b -fn \"Hack:size=7\""
 bind-key M-x window-close
 bind-key M-semicolon window-rcycle-ingroup
 
+bind-key M-n group-rcycle
+unbind-key M-m
+bind-key M-m group-cycle
+  # but only cycles toward groups with windows ;-)
+
 #bind-key M-bracketleft "~/bin/vup"
 #bind-key M-bracketright "~/bin/vdown"
 
