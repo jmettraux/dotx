@@ -58,9 +58,12 @@ bind-key M-r "dmenu_run -b -fn \"Hack:size=7\""
 bind-key M-x window-close
 bind-key M-semicolon window-rcycle-ingroup
 
-bind-key M-n group-rcycle
+#bind-key M-n group-rcycle
+#unbind-key M-m
+#bind-key M-m group-cycle
+bind-key M-n /home/jmettraux/.x/cwm_group_cycle.fish l
 unbind-key M-m
-bind-key M-m group-cycle
+bind-key M-m /home/jmettraux/.x/cwm_group_cycle.fish r
   # but only cycles toward groups with windows ;-)
 
 #bind-key M-bracketleft "~/bin/vup"
