@@ -7,4 +7,6 @@ termbar.*.ext.rb
 .openai.*
 .deep.md
 .deepseek.*
+.claude*
+.klaude*
 
