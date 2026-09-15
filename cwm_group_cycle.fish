@@ -1,7 +1,5 @@
 #!/usr/local/bin/fish
 
-# TODO refinement use ~/.cwm_current_desktop file
-
 set d (string split ' ' (xprop -root 32c ' $0' _NET_CURRENT_DESKTOP))[-1]
 
 #if test $argv[1] = 'l'
